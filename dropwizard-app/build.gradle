@@ -1,0 +1,50 @@
+plugins {
+    id 'java'
+    id 'application'
+    id "io.freefair.lombok" version "6.5.0.3"
+    id 'com.github.johnrengelman.shadow' version '7.1.0'
+}
+
+group = 'bitxon'
+version = '1.0-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(":common-api")
+    implementation 'io.dropwizard:dropwizard-core:2.1.1'
+    implementation 'io.dropwizard:dropwizard-client:2.1.1'
+    implementation 'io.dropwizard:dropwizard-validation:2.1.1'
+
+    testImplementation 'io.dropwizard:dropwizard-testing:2.1.1'
+    testImplementation 'org.assertj:assertj-core:3.23.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+mainClassName = 'bitxon.dropwizard.DropwizardApplication'
+
+jar {
+    manifest {
+        attributes 'Main-Class': mainClassName
+        attributes 'Build-Jdk-Spec': sourceCompatibility
+        attributes 'Class-Path': sourceSets.main.runtimeClasspath.collect { it.name }.join(' ')
+    }
+}
+
+shadowJar {
+    mergeServiceFiles()
+    exclude 'META-INF/*.DSA', 'META-INF/*.RSA', 'META-INF/*.SF'
+}
+
+run {
+    args = ['server', 'classpath:config.yml',]
+}
+
