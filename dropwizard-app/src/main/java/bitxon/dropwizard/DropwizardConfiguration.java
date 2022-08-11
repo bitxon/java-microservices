@@ -1,7 +1,18 @@
 package bitxon.dropwizard;
 
-import io.dropwizard.Configuration;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
+import io.dropwizard.Configuration;
+import io.dropwizard.db.DataSourceFactory;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Data
+@EqualsAndHashCode(callSuper=false)
 public class DropwizardConfiguration extends Configuration {
-    // TODO: implement service configuration
+
+    @Valid
+    @NotNull
+    private DataSourceFactory database = new DataSourceFactory();
 }

@@ -9,17 +9,30 @@ import javax.ws.rs.client.Client;
 import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.testing.DropwizardTestSupport;
 import io.dropwizard.testing.ResourceHelpers;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.utility.DockerImageName;
 
 
 public abstract class AbstractDropwizardTest {
 
+    private static final PostgreSQLContainer DB;
     private static final DropwizardTestSupport<DropwizardConfiguration> APP;
     private static final Client CLIENT;
 
     static {
+        DB = (PostgreSQLContainer) new PostgreSQLContainer(DockerImageName.parse("postgres").withTag("9.6.12"))
+            .withDatabaseName("testdb")
+            .withUsername("postgres")
+            .withPassword("postgres")
+            .withInitScript("sql/db-test-data.sql");
+        DB.start();
+
         APP = new DropwizardTestSupport<>(DropwizardApplication.class,
-            ResourceHelpers.resourceFilePath("config.yml"),
-            config("server.applicationConnectors[0].port", "0")
+            ResourceHelpers.resourceFilePath("config-test.yml"),
+            //config("server.applicationConnectors[0].port", "0"),
+            config("database.url", DB.getJdbcUrl()),
+            config("database.user", DB.getUsername()),
+            config("database.password", DB.getPassword())
         );
         try {
             // This trick helps to spin up application once
@@ -27,6 +40,7 @@ public abstract class AbstractDropwizardTest {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
         CLIENT = new JerseyClientBuilder(APP.getEnvironment()).build("test-client");
 
     }

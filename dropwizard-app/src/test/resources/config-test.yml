@@ -1,19 +1,19 @@
 server:
   applicationConnectors:
     - type: http
-      port: 8080
+      port: 0
   adminConnectors:
     - type: http
-      port: 8081
+      port: 0
 
 database:
   driverClass: org.postgresql.Driver
-  user: postgres
-  password: postgres
-  url: jdbc:postgresql://localhost:5432/postgres?loggerLevel=OFF
+  user: 'will-be-replaced-in-test'
+  password: 'will-be-replaced-in-test'
+  url: 'will-be-replaced-in-test'
   properties:
     hibernate.dialect: org.hibernate.dialect.PostgreSQL95Dialect
-    hibernate.hbm2ddl.auto: create-drop
+    hibernate.hbm2ddl.auto: none
     #hibernate.show_sql: true
     #hibernate.hbm2ddl.import_files:
 
