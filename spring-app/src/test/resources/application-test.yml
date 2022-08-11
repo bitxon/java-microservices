@@ -6,11 +6,11 @@ management:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: postgres
+    url: 'will-be-replaced-in-test'
+    username: 'will-be-replaced-in-test'
+    password: 'will-be-replaced-in-test'
   jpa.properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
-  jpa.hibernate.ddl-auto: create-drop
+  jpa.hibernate.ddl-auto: none
   #jpa.show-sql: true
 
 logging:
