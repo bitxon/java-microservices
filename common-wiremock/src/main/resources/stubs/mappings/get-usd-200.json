@@ -1,0 +1,13 @@
+{
+  "request": {
+    "url": "/exchanges?currency=USD",
+    "method": "GET"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "base-usd-response.json",
+    "headers": {
+      "Content-Type": "application/json; charset=UTF-8"
+    }
+  }
+}

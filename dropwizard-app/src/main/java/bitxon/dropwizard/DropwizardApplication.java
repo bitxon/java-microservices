@@ -1,5 +1,6 @@
 package bitxon.dropwizard;
 
+import bitxon.dropwizard.client.exchange.ExchangeClient;
 import bitxon.dropwizard.customization.ClasspathOrFileConfigurationSourceProvider;
 import bitxon.dropwizard.db.AccountDao;
 import bitxon.dropwizard.db.AccountDaoHibernateImpl;
@@ -7,6 +8,7 @@ import bitxon.dropwizard.db.model.Account;
 import bitxon.dropwizard.mapper.AccountMapper;
 import bitxon.dropwizard.resource.AccountResource;
 import io.dropwizard.Application;
+import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.db.PooledDataSourceFactory;
 import io.dropwizard.hibernate.dual.HibernateBundle;
@@ -49,6 +51,14 @@ public class DropwizardApplication extends Application<DropwizardConfiguration> 
                 bind(accountMapper).to(AccountMapper.class);
             }
         });
+
+
+        var client = new JerseyClientBuilder(environment)
+            .using(configuration.getExchangeClientConfig())
+            .build("exchangeClient");
+        var exchangeClient = new ExchangeClient(client, configuration.getExchangeClientConfig());
+        environment.jersey().register(exchangeClient);
+
 
         environment.jersey().register(AccountResource.class);
     }

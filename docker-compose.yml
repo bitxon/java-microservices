@@ -9,3 +9,12 @@ services:
       - POSTGRES_PASSWORD=postgres
     ports:
       - '5432:5432'
+
+  wiremock:
+    image: wiremock/wiremock:2.32.0
+    ports:
+      - "8888:8080"
+    command:
+      - "--global-response-templating"
+    volumes:
+      - ./common-wiremock/src/main/resources/stubs:/home/wiremock

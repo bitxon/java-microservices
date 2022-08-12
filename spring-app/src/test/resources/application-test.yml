@@ -13,6 +13,9 @@ spring:
   jpa.hibernate.ddl-auto: none
   #jpa.show-sql: true
 
+exchange-client-config:
+  base-path: "http://localhost:${wiremock.server.port}/exchanges?currency="
+
 logging:
   level:
     root: INFO

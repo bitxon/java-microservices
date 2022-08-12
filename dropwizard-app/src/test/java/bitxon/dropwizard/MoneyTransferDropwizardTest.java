@@ -43,6 +43,37 @@ public class MoneyTransferDropwizardTest extends AbstractDropwizardTest {
     }
 
     @Test
+    void transferFromGBPToUSD() throws Exception {
+        var transferAmount = 40;
+        var exchangeRate = 2.0d;
+        // Sender
+        var senderId = 6L;
+        var senderMoneyAmountOriginal = 80; // GPB
+        var senderMoneyAmountResult = senderMoneyAmountOriginal - transferAmount;
+        // Recipient
+        var recipientId = 5L;
+        var recipientMoneyAmountOriginal = 100; // USD
+        var recipientMoneyAmountResult = recipientMoneyAmountOriginal + (int)(transferAmount * exchangeRate);
+
+        var requestBody = MoneyTransfer.builder()
+            .senderId(senderId)
+            .recipientId(recipientId)
+            .moneyAmount(transferAmount)
+            .build();
+
+        var response = client()
+            .target(String.format("http://localhost:%d/accounts/transfers", appLocalPort()))
+            .request()
+            .buildPost(Entity.entity(requestBody, "application/json"))
+            .submit()
+            .get();
+
+        assertThat(response.getStatus()).isEqualTo(204);
+        assertThat(retrieveUserMoneyAmount(senderId)).isEqualTo(senderMoneyAmountResult);
+        assertThat(retrieveUserMoneyAmount(recipientId)).isEqualTo(recipientMoneyAmountResult);
+    }
+
+    @Test
     void transferWithServerProblemDuringTransfer() throws Exception {
         var transferAmount = 40;
         // Sender

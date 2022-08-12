@@ -1,0 +1,13 @@
+{
+  "request": {
+    "url": "/exchanges?currency=EUR",
+    "method": "GET"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "base-eur-response.json",
+    "headers": {
+      "Content-Type": "application/json; charset=UTF-8"
+    }
+  }
+}

@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 
 import bitxon.api.model.Account;
 import bitxon.api.model.MoneyTransfer;
+import bitxon.dropwizard.client.exchange.ExchangeClient;
 import bitxon.dropwizard.db.AccountDao;
 import bitxon.dropwizard.mapper.AccountMapper;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -33,6 +34,7 @@ public class AccountResource {
 
     private final AccountDao dao;
     private final AccountMapper mapper;
+    private final ExchangeClient exchangeClient;
 
     @GET
     @UnitOfWork
@@ -73,6 +75,9 @@ public class AccountResource {
         var recipient = dao.findById(transfer.getRecipientId())
             .orElseThrow(() -> new RuntimeException("Recipient not found"));
 
+        var exchangeRateValue = exchangeClient.getExchangeRate(sender.getCurrency())
+            .getRates().getOrDefault(recipient.getCurrency(), 1.0);
+
         sender.setMoneyAmount(sender.getMoneyAmount() - transfer.getMoneyAmount());
         dao.save(sender);
 
@@ -80,7 +85,7 @@ public class AccountResource {
             throw new RuntimeException("Error during money transfer");
         }
 
-        recipient.setMoneyAmount(recipient.getMoneyAmount() + transfer.getMoneyAmount());
+        recipient.setMoneyAmount(recipient.getMoneyAmount() + (int)(transfer.getMoneyAmount() * exchangeRateValue));
         dao.save(recipient);
     }
 }

@@ -42,6 +42,33 @@ public class MoneyTransferSpringTest extends AbstractSpringTest {
     }
 
     @Test
+    void transferFromGBPToUSD() throws Exception {
+        var transferAmount = 40;
+        var exchangeRate = 2.0d;
+        // Sender
+        var senderId = 6L;
+        var senderMoneyAmountOriginal = 80; // GPB
+        var senderMoneyAmountResult = senderMoneyAmountOriginal - transferAmount;
+        // Recipient
+        var recipientId = 5L;
+        var recipientMoneyAmountOriginal = 100; // USD
+        var recipientMoneyAmountResult = recipientMoneyAmountOriginal + (int)(transferAmount * exchangeRate);
+
+        var requestBody = MoneyTransfer.builder()
+            .senderId(senderId)
+            .recipientId(recipientId)
+            .moneyAmount(transferAmount)
+            .build();
+
+        var response = client()
+            .postForEntity("/accounts/transfers", requestBody, Void.class);
+
+        assertThat(response.getStatusCodeValue()).isEqualTo(204);
+        assertThat(retrieveUserMoneyAmount(senderId)).isEqualTo(senderMoneyAmountResult);
+        assertThat(retrieveUserMoneyAmount(recipientId)).isEqualTo(recipientMoneyAmountResult);
+    }
+
+    @Test
     void transferWithError() {
         var transferAmount = 40;
         // Sender

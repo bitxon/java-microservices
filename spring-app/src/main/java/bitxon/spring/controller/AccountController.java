@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import bitxon.api.model.Account;
 import bitxon.api.model.MoneyTransfer;
+import bitxon.spring.client.ExchangeClient;
 import bitxon.spring.db.AccountDao;
 import bitxon.spring.mapper.AccountMapper;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,7 @@ public class AccountController {
 
     private final AccountDao dao;
     private final AccountMapper mapper;
+    private final ExchangeClient exchangeClient;
 
     @GetMapping
     @Transactional(readOnly = true)
@@ -70,6 +72,9 @@ public class AccountController {
         var recipient = dao.findById(transfer.getRecipientId())
             .orElseThrow(() -> new RuntimeException("Recipient not found"));
 
+        var exchangeRateValue = exchangeClient.getExchangeRate(sender.getCurrency())
+            .getRates().getOrDefault(recipient.getCurrency(), 1.0);
+
         sender.setMoneyAmount(sender.getMoneyAmount() - transfer.getMoneyAmount());
         dao.save(sender);
 
@@ -77,7 +82,7 @@ public class AccountController {
             throw new RuntimeException("Error during money transfer");
         }
 
-        recipient.setMoneyAmount(recipient.getMoneyAmount() + transfer.getMoneyAmount());
+        recipient.setMoneyAmount(recipient.getMoneyAmount() + (int) (transfer.getMoneyAmount() * exchangeRateValue));
         dao.save(recipient);
     }
 }

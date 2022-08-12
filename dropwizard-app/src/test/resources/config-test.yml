@@ -17,6 +17,9 @@ database:
     #hibernate.show_sql: true
     #hibernate.hbm2ddl.import_files:
 
+exchangeClientConfig:
+  basePath: 'will-be-replaced-in-test'
+
 logging:
   level: INFO
   loggers:

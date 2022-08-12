@@ -11,4 +11,5 @@ INSERT INTO account (id, email, currency, money_amount) VALUES
     (DEFAULT, 'bob@mail.com', 'USD', 573),
     (DEFAULT, 'conor@mail.com', 'USD', 79),
     (DEFAULT, 'dilan@mail.com', 'USD', 33),
-    (DEFAULT, 'eva@mail.com', 'USD', 100);
+    (DEFAULT, 'eva@mail.com', 'USD', 100),
+    (DEFAULT, 'frank@mail.com', 'GBP', 80);

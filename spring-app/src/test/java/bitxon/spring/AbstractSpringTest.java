@@ -1,5 +1,8 @@
 package bitxon.spring;
 
+import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.client.WireMock;
+import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -14,6 +17,7 @@ import org.testcontainers.utility.DockerImageName;
 class AbstractSpringTest {
 
     private static final PostgreSQLContainer DB;
+    private static final WireMockServer WIREMOCK;
 
     static {
         DB = (PostgreSQLContainer) new PostgreSQLContainer(DockerImageName.parse("postgres").withTag("9.6.12"))
@@ -22,6 +26,13 @@ class AbstractSpringTest {
             .withPassword("postgres")
             .withInitScript("sql/db-test-data.sql");
         DB.start();
+
+        WIREMOCK = new WireMockServer(WireMockConfiguration.options()
+            .usingFilesUnderClasspath("stubs") // Loading stubs from common-wiremock
+            .dynamicPort()
+        );
+        WIREMOCK.start();
+        WireMock.configureFor(WIREMOCK.port());
     }
 
     @DynamicPropertySource
@@ -29,6 +40,7 @@ class AbstractSpringTest {
         registry.add("spring.datasource.url", DB::getJdbcUrl);
         registry.add("spring.datasource.username", DB::getUsername);
         registry.add("spring.datasource.password", DB::getPassword);
+        registry.add("wiremock.server.port", WIREMOCK::port);
     }
 
     @Autowired
