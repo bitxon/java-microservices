@@ -5,6 +5,7 @@ import static io.gatling.javaapi.http.HttpDsl.*;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -20,6 +21,13 @@ public class CommonSimulation extends Simulation {
             "moneyAmount", 340
         )
     ).iterator();
+
+    static Iterator<Map<String, Object>> feederTransfer = Stream.generate((Supplier<Map<String, Object>>) () ->
+        Map.of(
+            "moneyAmount", new Random().nextInt(100)
+        )
+    ).iterator();
+
 
     //-----------------------------------------------------------------------------------------------------------------
 
@@ -40,6 +48,20 @@ public class CommonSimulation extends Simulation {
         return exec(http("Get All").get("/"));
     }
 
+    private static ChainBuilder postTransfer() {
+        return exec().feed(feederTransfer).exec(http("Transfer")
+            .post("/transfers")
+            .header("Content-Type", "application/json")
+            .body(StringBody("""
+                {
+                    "senderId": "#{senderId}",
+                    "recipientId": "#{recipientId}",
+                    "moneyAmount": #{moneyAmount}
+                }
+                """))
+        );
+    }
+
     //-----------------------------------------------------------------------------------------------------------------
 
     HttpProtocolBuilder httpProtocol = http.baseUrl("http://localhost:8080/accounts")
@@ -55,6 +77,12 @@ public class CommonSimulation extends Simulation {
     ScenarioBuilder scenarioGetOne = scenario("Get One - Scenario").exec(
         postAccount("id"),
         getOneAccountById()
+    );
+
+    ScenarioBuilder scenarioTransfer = scenario("Transfer - Scenario").exec(
+        postAccount("senderId"),
+        postAccount("recipientId"),
+        postTransfer()
     );
 
     //-----------------------------------------------------------------------------------------------------------------
@@ -73,6 +101,13 @@ public class CommonSimulation extends Simulation {
                 rampUsersPerSec(10).to(20).during(10), // 10 -> 20
                 rampUsersPerSec(10).to(20).during(10).randomized(), // 10 -> 20
                 stressPeakUsers(400).during(20) // 8
+            ),
+            scenarioTransfer.injectOpen(
+                incrementUsersPerSec(3)
+                    .times(6)
+                    .eachLevelLasting(8)
+                    .separatedByRampsLasting(8)
+                    .startingFrom(8)
             )
         ).protocols(httpProtocol);
     }

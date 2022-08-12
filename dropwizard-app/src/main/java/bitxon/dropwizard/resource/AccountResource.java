@@ -1,9 +1,13 @@
 package bitxon.dropwizard.resource;
 
+import static bitxon.api.constant.Constants.DIRTY_TRICK_HEADER;
+import static bitxon.api.constant.Constants.DirtyTrick.FAIL_TRANSFER;
+
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -15,6 +19,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import bitxon.api.model.Account;
+import bitxon.api.model.MoneyTransfer;
 import bitxon.dropwizard.db.AccountDao;
 import bitxon.dropwizard.mapper.AccountMapper;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -54,5 +59,28 @@ public class AccountResource {
             .map(dao::save)
             .map(mapper::mapToApi)
             .get();
+    }
+
+    @POST
+    @Path("/transfers")
+    @UnitOfWork
+    public void transfer(@NotNull @Valid MoneyTransfer transfer,
+                         @HeaderParam(DIRTY_TRICK_HEADER) String dirtyTrick) {
+
+        var sender = dao.findById(transfer.getSenderId())
+            .orElseThrow(() -> new RuntimeException("Sender not found"));
+
+        var recipient = dao.findById(transfer.getRecipientId())
+            .orElseThrow(() -> new RuntimeException("Recipient not found"));
+
+        sender.setMoneyAmount(sender.getMoneyAmount() - transfer.getMoneyAmount());
+        dao.save(sender);
+
+        if (FAIL_TRANSFER.equals(dirtyTrick)) {
+            throw new RuntimeException("Error during money transfer");
+        }
+
+        recipient.setMoneyAmount(recipient.getMoneyAmount() + transfer.getMoneyAmount());
+        dao.save(recipient);
     }
 }
