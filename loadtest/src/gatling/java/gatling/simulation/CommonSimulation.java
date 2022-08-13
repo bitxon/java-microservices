@@ -14,6 +14,11 @@ import io.gatling.javaapi.core.*;
 import io.gatling.javaapi.http.*;
 
 public class CommonSimulation extends Simulation {
+
+    static final String BASE_URL = System.getProperty("base.url", "http://localhost:8080/accounts");
+
+    //-----------------------------------------------------------------------------------------------------------------
+
     static Iterator<Map<String, Object>> feederPost = Stream.generate((Supplier<Map<String, Object>>) () ->
         Map.of(
             "email", UUID.randomUUID() + "@mail.com",
@@ -28,24 +33,54 @@ public class CommonSimulation extends Simulation {
         )
     ).iterator();
 
+    static FeederBuilder<String> feederInvalidPost = csv("feeders/post-account-invalid-body.csv").random();
+
 
     //-----------------------------------------------------------------------------------------------------------------
 
     private static ChainBuilder postAccount(String sessionFieldNameForId) {
-        return exec().feed(feederPost).exec(http("Create One")
+        return exec().feed(feederPost).exec(http("Create")
             .post("/")
             .header("Content-Type", "application/json")
-            .body(StringBody("{\"email\": \"#{email}\",\"currency\": \"#{currency}\",\"moneyAmount\": #{moneyAmount}}"))
+            .body(StringBody("""
+                {
+                    "email": "#{email}",
+                    "currency": "#{currency}",
+                    "moneyAmount": #{moneyAmount}
+                }
+                """))
+            .check(status().is(200))
             .check(jsonPath("$.id").saveAs(sessionFieldNameForId))
         );
     }
 
+    private static ChainBuilder postInvalidAccount() {
+        return exec().feed(feederInvalidPost).exec(http("Create (400,422)")
+            .post("/")
+            .header("Content-Type", "application/json")
+            .body(StringBody("""
+                {
+                    "email": "#{email}",
+                    "currency": "#{currency}",
+                    "moneyAmount": #{moneyAmount}
+                }
+                """))
+            .check(status().in(400, 422))
+        );
+    }
+
     private static ChainBuilder getOneAccountById() {
-        return exec(http("Get One by Id").get("/#{id}"));
+        return exec(http("Get One")
+            .get("/#{id}")
+            .check(status().is(200))
+        );
     }
 
     private static ChainBuilder getAllAccounts() {
-        return exec(http("Get All").get("/"));
+        return exec(http("Get All")
+            .get("/")
+            .check(status().is(200))
+        );
     }
 
     private static ChainBuilder postTransfer() {
@@ -59,30 +94,33 @@ public class CommonSimulation extends Simulation {
                     "moneyAmount": #{moneyAmount}
                 }
                 """))
+            .check(status().is(204))
         );
     }
 
     //-----------------------------------------------------------------------------------------------------------------
 
-    HttpProtocolBuilder httpProtocol = http.baseUrl("http://localhost:8080/accounts")
+    HttpProtocolBuilder httpProtocol = http.baseUrl(BASE_URL)
         .acceptHeader("application/json")
-        .acceptLanguageHeader("en-US,en;q=0.5")
-        .acceptEncodingHeader("gzip, deflate")
-        .userAgentHeader("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:16.0) Gecko/20100101 Firefox/16.0");
+        .acceptLanguageHeader("en-US,en;q=0.5");
 
     ScenarioBuilder scenarioGetAll = scenario("Get All - Scenario").exec(
         getAllAccounts()
     );
 
     ScenarioBuilder scenarioGetOne = scenario("Get One - Scenario").exec(
-        postAccount("id"),
+        postAccount("id").exitHereIfFailed(),
         getOneAccountById()
     );
 
     ScenarioBuilder scenarioTransfer = scenario("Transfer - Scenario").exec(
-        postAccount("senderId"),
-        postAccount("recipientId"),
+        postAccount("senderId").exitHereIfFailed(),
+        postAccount("recipientId").exitHereIfFailed(),
         postTransfer()
+    );
+
+    ScenarioBuilder scenarioValidation = scenario("Validation 4xx - Scenario").exec(
+        postInvalidAccount()
     );
 
     //-----------------------------------------------------------------------------------------------------------------
@@ -108,6 +146,9 @@ public class CommonSimulation extends Simulation {
                     .eachLevelLasting(8)
                     .separatedByRampsLasting(8)
                     .startingFrom(8)
+            ),
+            scenarioValidation.injectOpen(
+                constantUsersPerSec(10).during(90)
             )
         ).protocols(httpProtocol);
     }

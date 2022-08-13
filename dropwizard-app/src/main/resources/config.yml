@@ -5,6 +5,8 @@ server:
   adminConnectors:
     - type: http
       port: 8081
+  requestLog:
+    appenders: [] # Disable default logging (response status)
 
 database:
   driverClass: org.postgresql.Driver
