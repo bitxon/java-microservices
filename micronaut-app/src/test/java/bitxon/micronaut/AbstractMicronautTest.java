@@ -5,8 +5,10 @@ import io.micronaut.http.client.annotation.Client;
 import io.micronaut.runtime.EmbeddedApplication;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
-@MicronautTest
+@Testcontainers
+@MicronautTest // default environments is 'test'
 class AbstractMicronautTest {
 
     @Inject
