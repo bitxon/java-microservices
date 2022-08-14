@@ -1,0 +1,45 @@
+plugins {
+    id "io.freefair.lombok" version "6.5.0.3"
+    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("io.micronaut.application") version "3.5.1"
+}
+
+group = 'bitxon'
+version = '1.0-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(":common-api")
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut:micronaut-jackson-databind")
+    implementation("jakarta.annotation:jakarta.annotation-api")
+    implementation("io.micronaut:micronaut-validation")
+    implementation("io.micronaut.beanvalidation:micronaut-hibernate-validator")
+    implementation("io.micronaut:micronaut-management")
+
+    annotationProcessor("io.micronaut:micronaut-http-validation")
+
+    runtimeOnly("ch.qos.logback:logback-classic")
+
+    testImplementation("org.assertj:assertj-core")
+}
+
+application {
+    mainClass.set("bitxon.micronaut.MicronautApplication")
+}
+
+graalvmNative.toolchainDetection = false
+micronaut {
+    version("3.6.0")
+    runtime("netty")
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations("bitxon.micronaut.*")
+    }
+}
+
