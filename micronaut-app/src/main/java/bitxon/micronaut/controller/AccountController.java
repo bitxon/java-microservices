@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import bitxon.api.model.Account;
 import bitxon.api.model.MoneyTransfer;
+import bitxon.micronaut.client.exchange.ExchangeClient;
 import bitxon.micronaut.db.AccountDao;
 import bitxon.micronaut.mapper.AccountMapper;
 import io.micronaut.core.annotation.Nullable;
@@ -34,6 +35,7 @@ public class AccountController {
 
     private final AccountDao dao;
     private final AccountMapper mapper;
+    private final ExchangeClient exchangeClient;
 
     @Get
     @ReadOnly
@@ -72,8 +74,8 @@ public class AccountController {
         var recipient = dao.findById(transfer.getRecipientId())
             .orElseThrow(() -> new RuntimeException("Recipient not found"));
 
-        var exchangeRateValue =  1.0d;
-        //exchangeClient.getExchangeRate(sender.getCurrency()).getRates().getOrDefault(recipient.getCurrency(), 1.0);
+        var exchangeRateValue = exchangeClient.getExchangeRate(sender.getCurrency())
+            .getRates().getOrDefault(recipient.getCurrency(), 1.0);
 
         sender.setMoneyAmount(sender.getMoneyAmount() - transfer.getMoneyAmount());
         dao.save(sender);

@@ -3,6 +3,11 @@ micronaut:
     name: micronaut-app
   server:
     port: 8080
+  http:
+    services:
+      exchange-client:
+        url: "http://localhost:8888"
+        read-timeout: 1m
 endpoints:
   all:
     port: 8081

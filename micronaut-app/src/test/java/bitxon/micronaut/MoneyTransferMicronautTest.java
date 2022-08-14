@@ -7,13 +7,16 @@ import static org.assertj.core.api.Assertions.catchThrowableOfType;
 
 import bitxon.api.model.Account;
 import bitxon.api.model.MoneyTransfer;
+import com.github.tomakehurst.wiremock.client.WireMock;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.client.exceptions.HttpClientResponseException;
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import org.junit.jupiter.api.Test;
 
 
+@MicronautTest(rebuildContext = true)
 class MoneyTransferMicronautTest extends AbstractMicronautTest {
 
     @Test

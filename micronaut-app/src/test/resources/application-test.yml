@@ -1,3 +1,10 @@
+micronaut:
+  http:
+    services:
+      exchange-client:
+        url: 'will-be-replaced-in-test'
+        read-timeout: 1m
+
 datasources:
   default:
     url: jdbc:tc:postgresql:14.4:///postgres?TC_INITSCRIPT=file:src/test/resources/sql/db-test-data.sql

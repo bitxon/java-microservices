@@ -20,3 +20,4 @@ logging:
   level:
     root: INFO
     bitxon.dropwizard: DEBUG
+    org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver: ERROR
