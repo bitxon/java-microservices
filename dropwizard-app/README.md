@@ -1,16 +1,13 @@
-# Dropwizard application
+# Dropwizard
 
-How to start the Dropwizard application
----
+## Build & Run
 
-1. Run `gradle clean build` to build your application
-2. Start application with `java -jar build/libs/dropwizard-app-1.0-SNAPSHOT-all.jar server classpath:config.yml`
-3. To check that your application is running enter url `curl http://localhost:8080/accounts`
+1. Build
+    - `gradle clean build`
+2. Start application
+    - `java -jar build/libs/dropwizard-app-1.0-SNAPSHOT-all.jar server classpath:config.yml`
+3. To check that your application is running
+    - `curl http://localhost:8080/accounts`
+    - `curl http://localhost:8081/healthcheck`
 
-Note: `classpath:config.yml` supported thanks to `ClasspathOrFileConfigurationSourceProvide`
-
-
-Health Check
----
-
-To see your application's health enter url `http://localhost:8081/healthcheck`
+Note: `classpath:config.yml` supported via customization `ClasspathOrFileConfigurationSourceProvide`
