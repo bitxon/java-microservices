@@ -1,8 +1,7 @@
 plugins {
     id 'java'
     id 'application'
-    id "io.freefair.lombok" version "6.5.0.3"
-    id 'com.github.johnrengelman.shadow' version '7.1.0'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 group = 'bitxon'
@@ -19,15 +18,18 @@ dependencies {
     implementation 'io.dropwizard:dropwizard-client:2.1.1'
     implementation 'io.dropwizard:dropwizard-validation:2.1.1'
     implementation 'io.dropwizard:dropwizard-hibernate:2.1.1'
-    implementation 'org.mapstruct:mapstruct:1.5.1.Final'
+    implementation 'org.mapstruct:mapstruct:1.5.2.Final'
 
-    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.1.Final'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.2.Final'
+
+    compileOnly 'org.projectlombok:lombok:1.18.24'
 
     runtimeOnly 'org.postgresql:postgresql:42.4.0'
 
     testImplementation 'io.dropwizard:dropwizard-testing:2.1.1'
     testImplementation project(":common-wiremock")
-    testImplementation 'com.github.tomakehurst:wiremock:2.27.2'
+    testImplementation 'com.github.tomakehurst:wiremock-jre8:2.33.2'
     testImplementation 'org.testcontainers:testcontainers:1.17.3'
     testImplementation 'org.testcontainers:junit-jupiter:1.17.3'
     testImplementation 'org.testcontainers:postgresql:1.17.3'

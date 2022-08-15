@@ -20,7 +20,7 @@ class AbstractSpringTest {
     private static final WireMockServer WIREMOCK;
 
     static {
-        DB = (PostgreSQLContainer) new PostgreSQLContainer(DockerImageName.parse("postgres").withTag("9.6.12"))
+        DB = (PostgreSQLContainer) new PostgreSQLContainer(DockerImageName.parse("postgres").withTag("14.4"))
             .withDatabaseName("testdb")
             .withUsername("postgres")
             .withPassword("postgres")
