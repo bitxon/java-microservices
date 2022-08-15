@@ -13,6 +13,8 @@ public class CreateAccountDropwizardTest extends AbstractDropwizardTest {
     void create() throws Exception{
         var account = Account.builder()
             .email("some-email@example.com")
+            .firstName("MyName")
+            .lastName("FamilyName")
             .currency("USD")
             .moneyAmount(893)
             .build();
@@ -31,6 +33,8 @@ public class CreateAccountDropwizardTest extends AbstractDropwizardTest {
     void createWithMissedEmail() throws Exception{
         var account = Account.builder()
             .email(null)
+            .firstName("MyName")
+            .lastName("FamilyName")
             .currency("USD")
             .moneyAmount(893)
             .build();

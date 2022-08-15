@@ -22,6 +22,8 @@ public class CommonSimulation extends Simulation {
     static Iterator<Map<String, Object>> feederPost = Stream.generate((Supplier<Map<String, Object>>) () ->
         Map.of(
             "email", UUID.randomUUID() + "@mail.com",
+            "firstName", UUID.randomUUID().toString().replace("-", ""),
+            "lastName", UUID.randomUUID().toString().replace("-", ""),
             "currency", "USD",
             "moneyAmount", 340
         )
@@ -45,6 +47,8 @@ public class CommonSimulation extends Simulation {
             .body(StringBody("""
                 {
                     "email": "#{email}",
+                    "firstName": "#{firstName}",
+                    "lastName": "#{lastName}",
                     "currency": "#{currency}",
                     "moneyAmount": #{moneyAmount}
                 }
@@ -61,6 +65,8 @@ public class CommonSimulation extends Simulation {
             .body(StringBody("""
                 {
                     "email": "#{email}",
+                    "firstName": "#{firstName}",
+                    "lastName": "#{lastName}",
                     "currency": "#{currency}",
                     "moneyAmount": #{moneyAmount}
                 }

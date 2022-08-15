@@ -11,6 +11,8 @@ public class CreateAccountSpringTest extends AbstractSpringTest {
     void create() {
         var account = Account.builder()
             .email("some-email@example.com")
+            .firstName("MyName")
+            .lastName("FamilyName")
             .currency("USD")
             .moneyAmount(893)
             .build();
@@ -25,6 +27,8 @@ public class CreateAccountSpringTest extends AbstractSpringTest {
     void createWithMissedEmail() {
         var account = Account.builder()
             .email(null)
+            .firstName("MyName")
+            .lastName("FamilyName")
             .currency("USD")
             .moneyAmount(893)
             .build();

@@ -31,6 +31,10 @@ public class Account {
     private Long id;
     @Column(name = "email", nullable = false)
     private String email;
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
     @Column(name = "currency", nullable = false)
     private String currency;
     @Column(name = "money_amount", nullable = false)

@@ -1,4 +1,6 @@
-email,currency,moneyAmount
-invalidEmail,USD,340
-email@email.com,INVALID,340
-email@email.com,USD,-1
+email,firstName,lastName,currency,moneyAmount
+,firstName,lastName,UDS,340
+email@email.com,,lastName,UDS,340
+email@email.com,firstName,,UDS,340
+email@email.com,firstName,lastName,,340
+email@email.com,firstName,lastName,UDS,

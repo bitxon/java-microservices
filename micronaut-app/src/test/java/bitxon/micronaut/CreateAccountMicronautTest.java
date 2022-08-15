@@ -11,12 +11,14 @@ import io.micronaut.http.client.exceptions.HttpClientResponseException;
 import org.junit.jupiter.api.Test;
 
 
-class CreateAccountByIdMicronautTest extends AbstractMicronautTest {
+class CreateAccountMicronautTest extends AbstractMicronautTest {
 
     @Test
     public void create() {
         var account = Account.builder()
             .email("some-email@example.com")
+            .firstName("MyName")
+            .lastName("FamilyName")
             .currency("USD")
             .moneyAmount(893)
             .build();
@@ -31,6 +33,8 @@ class CreateAccountByIdMicronautTest extends AbstractMicronautTest {
     void createWithMissedEmail() {
         var account = Account.builder()
             .email(null)
+            .firstName("MyName")
+            .lastName("FamilyName")
             .currency("USD")
             .moneyAmount(893)
             .build();
