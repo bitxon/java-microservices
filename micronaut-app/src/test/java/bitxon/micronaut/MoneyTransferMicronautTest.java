@@ -7,7 +7,6 @@ import static org.assertj.core.api.Assertions.catchThrowableOfType;
 
 import bitxon.api.model.Account;
 import bitxon.api.model.MoneyTransfer;
-import com.github.tomakehurst.wiremock.client.WireMock;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
@@ -46,6 +45,35 @@ class MoneyTransferMicronautTest extends AbstractMicronautTest {
         assertThat(retrieveUserMoneyAmount(recipientId)).as("Check recipient result balance")
             .isEqualTo(recipientMoneyAmountResult);
 
+    }
+
+    @Test
+    void transferFromGBPToUSD() {
+        var transferAmount = 40;
+        var exchangeRate = 2.0d;
+        // Sender
+        var senderId = 6L;
+        var senderMoneyAmountOriginal = 80; // GPB
+        var senderMoneyAmountResult = senderMoneyAmountOriginal - transferAmount;
+        // Recipient
+        var recipientId = 5L;
+        var recipientMoneyAmountOriginal = 100; // USD
+        var recipientMoneyAmountResult = recipientMoneyAmountOriginal + (int)(transferAmount * exchangeRate);
+
+        var requestBody = MoneyTransfer.builder()
+            .senderId(senderId)
+            .recipientId(recipientId)
+            .moneyAmount(transferAmount)
+            .build();
+
+        var request = HttpRequest.POST("/transfers", requestBody);
+        var response = client().toBlocking().exchange(request);
+
+        assertThat(response.getStatus().getCode()).isEqualTo(204);
+        assertThat(retrieveUserMoneyAmount(senderId)).as("Check sender result balance")
+            .isEqualTo(senderMoneyAmountResult);
+        assertThat(retrieveUserMoneyAmount(recipientId)).as("Check recipient result balance")
+            .isEqualTo(recipientMoneyAmountResult);
     }
 
     @Test
