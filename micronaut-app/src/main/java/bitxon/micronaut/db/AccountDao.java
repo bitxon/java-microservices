@@ -5,10 +5,10 @@ import java.util.Optional;
 
 import bitxon.micronaut.db.model.Account;
 import io.micronaut.data.annotation.Repository;
-import io.micronaut.data.repository.CrudRepository;
+import io.micronaut.data.jpa.repository.JpaRepository;
 
 @Repository
-public interface AccountDao extends CrudRepository<Account, Long> {
+public interface AccountDao extends JpaRepository<Account, Long> {
 
     @Override
     List<Account> findAll();
@@ -17,6 +17,6 @@ public interface AccountDao extends CrudRepository<Account, Long> {
     Optional<Account> findById(Long id);
 
     @Override
-    Account save(Account entity);
+    <S extends Account> S save(S entity);
 
 }
