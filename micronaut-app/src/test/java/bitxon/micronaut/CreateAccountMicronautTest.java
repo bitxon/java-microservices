@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 class CreateAccountMicronautTest extends AbstractMicronautTest {
 
     @Test
-    public void create() {
+    void create() {
         var account = Account.builder()
             .email("some-email@example.com")
             .firstName("MyName")
@@ -32,7 +32,7 @@ class CreateAccountMicronautTest extends AbstractMicronautTest {
     @Test
     void createWithMissedEmail() {
         var account = Account.builder()
-            .email(null)
+            .email(null) // Required field is null
             .firstName("MyName")
             .lastName("FamilyName")
             .currency("USD")

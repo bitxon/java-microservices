@@ -7,7 +7,7 @@ import javax.ws.rs.client.Entity;
 import bitxon.api.model.Account;
 import org.junit.jupiter.api.Test;
 
-public class CreateAccountDropwizardTest extends AbstractDropwizardTest {
+class CreateAccountDropwizardTest extends AbstractDropwizardTest {
 
     @Test
     void create() throws Exception{
@@ -32,7 +32,7 @@ public class CreateAccountDropwizardTest extends AbstractDropwizardTest {
     @Test
     void createWithMissedEmail() throws Exception{
         var account = Account.builder()
-            .email(null)
+            .email(null)  // Required field is null
             .firstName("MyName")
             .lastName("FamilyName")
             .currency("USD")

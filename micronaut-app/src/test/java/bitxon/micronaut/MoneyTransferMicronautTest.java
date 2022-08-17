@@ -11,11 +11,9 @@ import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.client.exceptions.HttpClientResponseException;
-import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import org.junit.jupiter.api.Test;
 
 
-@MicronautTest(rebuildContext = true)
 class MoneyTransferMicronautTest extends AbstractMicronautTest {
 
     @Test
@@ -58,7 +56,7 @@ class MoneyTransferMicronautTest extends AbstractMicronautTest {
         // Recipient
         var recipientId = 5L;
         var recipientMoneyAmountOriginal = 100; // USD
-        var recipientMoneyAmountResult = recipientMoneyAmountOriginal + (int)(transferAmount * exchangeRate);
+        var recipientMoneyAmountResult = recipientMoneyAmountOriginal + (int) (transferAmount * exchangeRate);
 
         var requestBody = MoneyTransfer.builder()
             .senderId(senderId)
@@ -77,7 +75,7 @@ class MoneyTransferMicronautTest extends AbstractMicronautTest {
     }
 
     @Test
-    void transferWithError() {
+    void transferWithServerProblemDuringTransfer() {
         var transferAmount = 40;
         // Sender
         var senderId = 3L;
@@ -109,6 +107,29 @@ class MoneyTransferMicronautTest extends AbstractMicronautTest {
             .isEqualTo(senderMoneyAmountOriginal);
         assertThat(retrieveUserMoneyAmount(recipientId)).as("Check recipient result balance")
             .isEqualTo(recipientMoneyAmountOriginal);
+
+    }
+
+    @Test
+    void transferWithoutRequiredField() {
+        var requestBody = MoneyTransfer.builder()
+            .senderId(1L)
+            .recipientId(2L)
+            .moneyAmount(null) // Required field is null
+            .build();
+
+        var request = HttpRequest.POST("/transfers", requestBody)
+            .header(DIRTY_TRICK_HEADER, FAIL_TRANSFER);
+        var exception = catchThrowableOfType(
+            () -> client().toBlocking().exchange(request, Account.class),
+            HttpClientResponseException.class
+        );
+
+        assertThat(exception).as("Check response error/status")
+            .extracting(HttpClientResponseException::getResponse)
+            .extracting(HttpResponse::getStatus)
+            .extracting(HttpStatus::getCode)
+            .isEqualTo(400);
 
     }
 

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 class GetAccountByIdMicronautTest extends AbstractMicronautTest {
 
     @Test
-    public void getById() {
+    void getById() {
         var expectedId = 1L;
         var request = HttpRequest.GET("/" + expectedId);
         var response = client().toBlocking().exchange(request, Account.class);

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 class FindAccountsMicronautTest extends AbstractMicronautTest {
 
     @Test
-    public void getAll() {
+    void getAll() {
         var request = HttpRequest.GET("");
         var response = client().toBlocking().exchange(request);
 

@@ -17,7 +17,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Testcontainers
 @MicronautTest // default environments is 'test'
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class AbstractMicronautTest implements TestPropertyProvider {
+abstract class AbstractMicronautTest implements TestPropertyProvider {
 
     private static final WireMockServer WIREMOCK;
 

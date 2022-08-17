@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import bitxon.api.model.Account;
 import org.junit.jupiter.api.Test;
 
-public class CreateAccountSpringTest extends AbstractSpringTest {
+class CreateAccountSpringTest extends AbstractSpringTest {
 
     @Test
     void create() {
@@ -26,7 +26,7 @@ public class CreateAccountSpringTest extends AbstractSpringTest {
     @Test
     void createWithMissedEmail() {
         var account = Account.builder()
-            .email(null)
+            .email(null) // Required field is null
             .firstName("MyName")
             .lastName("FamilyName")
             .currency("USD")

@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import bitxon.api.model.Account;
 import org.junit.jupiter.api.Test;
 
-public class GetByIdDropwizardTest extends AbstractDropwizardTest {
+class GetByIdDropwizardTest extends AbstractDropwizardTest {
 
     @Test
     void getById() throws Exception{

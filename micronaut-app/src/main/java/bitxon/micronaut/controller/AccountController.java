@@ -66,8 +66,8 @@ public class AccountController {
     @Post("/transfers")
     @Status(HttpStatus.NO_CONTENT)
     @TransactionalAdvice
-    public void create(@Body @Valid MoneyTransfer transfer,
-                       @Header(value = DIRTY_TRICK_HEADER) @Nullable String dirtyTrick) {
+    public void transfer(@Body @Valid MoneyTransfer transfer,
+                         @Header(value = DIRTY_TRICK_HEADER) @Nullable String dirtyTrick) {
         var sender = dao.findById(transfer.getSenderId())
             .orElseThrow(() -> new RuntimeException("Sender not found"));
 

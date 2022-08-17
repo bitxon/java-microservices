@@ -14,7 +14,7 @@ import org.testcontainers.utility.DockerImageName;
 
 @ActiveProfiles("test")
 @SpringBootTest(classes = SpringAppApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class AbstractSpringTest {
+abstract class AbstractSpringTest {
 
     private static final PostgreSQLContainer DB;
     private static final WireMockServer WIREMOCK;

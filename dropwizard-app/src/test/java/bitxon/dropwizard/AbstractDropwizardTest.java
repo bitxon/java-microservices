@@ -16,7 +16,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
 
-public abstract class AbstractDropwizardTest {
+abstract class AbstractDropwizardTest {
 
     private static final PostgreSQLContainer DB;
     public static final WireMockServer WIREMOCK;

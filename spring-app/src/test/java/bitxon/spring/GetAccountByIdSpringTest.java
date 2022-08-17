@@ -6,7 +6,7 @@ import bitxon.api.model.Account;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpMethod;
 
-public class GetAccountByIdSpringTest extends AbstractSpringTest {
+class GetAccountByIdSpringTest extends AbstractSpringTest {
 
     @Test
     void getById() {

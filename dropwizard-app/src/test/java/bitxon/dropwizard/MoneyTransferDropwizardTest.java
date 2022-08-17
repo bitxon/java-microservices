@@ -10,7 +10,7 @@ import bitxon.api.model.Account;
 import bitxon.api.model.MoneyTransfer;
 import org.junit.jupiter.api.Test;
 
-public class MoneyTransferDropwizardTest extends AbstractDropwizardTest {
+class MoneyTransferDropwizardTest extends AbstractDropwizardTest {
 
     @Test
     void transfer() throws Exception {
@@ -53,7 +53,7 @@ public class MoneyTransferDropwizardTest extends AbstractDropwizardTest {
         // Recipient
         var recipientId = 5L;
         var recipientMoneyAmountOriginal = 100; // USD
-        var recipientMoneyAmountResult = recipientMoneyAmountOriginal + (int)(transferAmount * exchangeRate);
+        var recipientMoneyAmountResult = recipientMoneyAmountOriginal + (int) (transferAmount * exchangeRate);
 
         var requestBody = MoneyTransfer.builder()
             .senderId(senderId)
@@ -100,6 +100,26 @@ public class MoneyTransferDropwizardTest extends AbstractDropwizardTest {
         assertThat(response.getStatus()).isEqualTo(500);
         assertThat(retrieveUserMoneyAmount(senderId)).isEqualTo(senderMoneyAmountOriginal);
         assertThat(retrieveUserMoneyAmount(recipientId)).isEqualTo(recipientMoneyAmountOriginal);
+    }
+
+    @Test
+    void transferWithoutRequiredField() throws Exception {
+
+        var requestBody = MoneyTransfer.builder()
+            .senderId(1L)
+            .recipientId(2L)
+            .moneyAmount(null) // Required field is null
+            .build();
+
+        var response = client()
+            .target(String.format("http://localhost:%d/accounts/transfers", appLocalPort()))
+            .request()
+            .header(DIRTY_TRICK_HEADER, FAIL_TRANSFER)
+            .buildPost(Entity.entity(requestBody, "application/json"))
+            .submit()
+            .get();
+
+        assertThat(response.getStatus()).isEqualTo(422);
     }
 
     private int retrieveUserMoneyAmount(Long id) {

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 
-public class FindAccountsSpringTest extends AbstractSpringTest {
+class FindAccountsSpringTest extends AbstractSpringTest {
 
     @Test
     void getAll() {

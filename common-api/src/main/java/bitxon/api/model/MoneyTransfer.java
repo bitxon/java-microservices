@@ -21,5 +21,6 @@ public class MoneyTransfer {
     @NotNull
     Long recipientId;
     @PositiveOrZero
+    @NotNull
     Integer moneyAmount;
 }

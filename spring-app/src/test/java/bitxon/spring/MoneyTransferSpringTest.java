@@ -11,7 +11,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 
-public class MoneyTransferSpringTest extends AbstractSpringTest {
+class MoneyTransferSpringTest extends AbstractSpringTest {
 
     @Test
     void transfer() {
@@ -69,7 +69,7 @@ public class MoneyTransferSpringTest extends AbstractSpringTest {
     }
 
     @Test
-    void transferWithError() {
+    void transferWithServerProblemDuringTransfer() {
         var transferAmount = 40;
         // Sender
         var senderId = 3L;
@@ -99,6 +99,25 @@ public class MoneyTransferSpringTest extends AbstractSpringTest {
         assertThat(retrieveUserMoneyAmount(recipientId)).as("Check recipient result balance")
             .isEqualTo(recipientMoneyAmountOriginal);
 
+    }
+
+    @Test
+    void transferWithoutRequiredField() {
+        var requestBody = MoneyTransfer.builder()
+            .senderId(1L)
+            .recipientId(2L)
+            .moneyAmount(null) // Required field is null
+            .build();
+
+
+        var headers = new HttpHeaders();
+        headers.set(DIRTY_TRICK_HEADER, FAIL_TRANSFER);
+        var request = new HttpEntity<MoneyTransfer>(requestBody, headers);
+
+        var response = client()
+            .postForEntity("/accounts/transfers", request, Void.class);
+
+        assertThat(response.getStatusCodeValue()).isEqualTo(400);
     }
 
     private int retrieveUserMoneyAmount(Long id) {
