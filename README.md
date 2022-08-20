@@ -3,6 +3,7 @@
 - [Dropwizard](dropwizard-app/README.md)
 - [Spring](spring-app/README.md)
 - [Micronaut](micronaut-app/README.md)
+- [Quarkus](quarkus-app/README.md)
 
 ## Quick start
 
@@ -14,5 +15,6 @@
     - `./run-dropwizard.sh`
     - `./run-spring.sh`
     - `./run-micronaut.sh`
+    - `./run-quarkus.sh`
 4. Run Gatling:
     - `./gradlew :loadtest:gatlingRun`

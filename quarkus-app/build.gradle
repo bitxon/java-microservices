@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+    id 'io.quarkus' version '2.11.2.Final'
+}
+
+group = 'bitxon.quarkus'
+version =  '1.0-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation project(":common-api")
+    implementation enforcedPlatform("io.quarkus.platform:quarkus-bom:2.11.2.Final")
+    implementation 'io.quarkus:quarkus-arc'
+    implementation 'io.quarkus:quarkus-resteasy-reactive-jackson'
+    implementation 'io.quarkus:quarkus-smallrye-health'
+    testImplementation 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.rest-assured:rest-assured'
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
