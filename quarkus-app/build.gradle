@@ -3,6 +3,9 @@ plugins {
     id 'io.quarkus' version '2.11.2.Final'
 }
 
+// Values: ['jar', 'uber-jar', 'native', 'native-sources']
+ext.set("quarkus.package.type", "uber-jar")
+
 group = 'bitxon.quarkus'
 version =  '1.0-SNAPSHOT'
 sourceCompatibility = '17'
