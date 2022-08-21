@@ -1,8 +1,8 @@
-package bitxon.quarkus.resource;
+package bitxon.quarkus;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
 @QuarkusIntegrationTest
-public class AccountResourceIT extends AccountResourceTest {
+public class CreateAccountQuarkusIntTest extends CreateAccountQuarkusTest {
     // Execute the same tests but in packaged mode.
 }
