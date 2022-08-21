@@ -50,6 +50,42 @@ public class MoneyTransferQuarkusTest extends AbstractQuarkusTest {
     }
 
     @Test
+    void transferFromGBPToUSD() {
+        var transferAmount = 40;
+        var exchangeRate = 2.0d;
+        // Sender
+        var senderId = 6L;
+        var senderMoneyAmountOriginal = 80; // GPB
+        var senderMoneyAmountResult = senderMoneyAmountOriginal - transferAmount;
+        // Recipient
+        var recipientId = 5L;
+        var recipientMoneyAmountOriginal = 100; // USD
+        var recipientMoneyAmountResult = recipientMoneyAmountOriginal + (int) (transferAmount * exchangeRate);
+
+        var requestBody = MoneyTransfer.builder()
+            .senderId(senderId)
+            .recipientId(recipientId)
+            .moneyAmount(transferAmount)
+            .build();
+
+        //@formatter:off
+        given()
+            .body(requestBody)
+            .contentType(ContentType.JSON)
+        .when()
+            .post("/accounts/transfers")
+        .then()
+            .statusCode(204);
+
+
+        get("/accounts/" + senderId).then()
+            .assertThat().body("moneyAmount", equalTo(senderMoneyAmountResult));
+        get("/accounts/" + recipientId).then().assertThat()
+            .body("moneyAmount", equalTo(recipientMoneyAmountResult));
+        //@formatter:on
+    }
+
+    @Test
     void transferWithServerProblemDuringTransfer() {
         var transferAmount = 40;
         // Sender

@@ -17,16 +17,23 @@ import java.util.stream.Collectors;
 
 import bitxon.api.model.Account;
 import bitxon.api.model.MoneyTransfer;
+import bitxon.quarkus.client.exchange.ExchangeClient;
 import bitxon.quarkus.db.AccountDao;
 import bitxon.quarkus.mapper.AccountMapper;
 import lombok.RequiredArgsConstructor;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 @Path("/accounts")
-@RequiredArgsConstructor(onConstructor = @__(@Inject))
+//@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class AccountResource {
 
-    private final AccountDao dao;
-    private final AccountMapper mapper;
+    @Inject
+    private AccountDao dao;
+    @Inject
+    private AccountMapper mapper;
+    @Inject
+    @RestClient
+    private ExchangeClient exchangeClient;
 
     @GET
     public List<Account> getAll() {
@@ -64,7 +71,8 @@ public class AccountResource {
         var recipient = dao.findByIdOptional(transfer.getRecipientId())
             .orElseThrow(() -> new RuntimeException("Recipient not found"));
 
-        var exchangeRateValue = 1.0d;
+        var exchangeRateValue = exchangeClient.getExchangeRate(sender.getCurrency())
+            .getRates().getOrDefault(recipient.getCurrency(), 1.0);
 
         sender.setMoneyAmount(sender.getMoneyAmount() - transfer.getMoneyAmount());
         dao.save(sender);

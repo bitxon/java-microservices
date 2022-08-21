@@ -20,6 +20,8 @@ dependencies {
     implementation enforcedPlatform("io.quarkus.platform:quarkus-bom:2.11.2.Final")
     implementation 'io.quarkus:quarkus-arc'
     implementation 'io.quarkus:quarkus-resteasy-reactive-jackson'
+    implementation 'io.quarkus:quarkus-rest-client'
+    implementation 'io.quarkus:quarkus-rest-client-jackson'
     implementation 'io.quarkus:quarkus-smallrye-health'
     implementation 'io.quarkus:quarkus-hibernate-validator'
     implementation 'io.quarkus:quarkus-hibernate-orm-panache'
@@ -31,6 +33,8 @@ dependencies {
     testImplementation 'org.testcontainers:junit-jupiter'
     testImplementation 'org.testcontainers:postgresql'
     testImplementation 'org.testcontainers:testcontainers'
+    testImplementation 'com.github.tomakehurst:wiremock-jre8:2.33.2'
+    testImplementation project(":common-wiremock")
 }
 
 compileJava {
