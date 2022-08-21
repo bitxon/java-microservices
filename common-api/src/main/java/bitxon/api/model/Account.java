@@ -28,6 +28,7 @@ public class Account {
     @NotNull
     @Pattern(regexp = "USD|EUR|GBP")
     String currency;
+    @NotNull
     @PositiveOrZero
     Integer moneyAmount;
 

@@ -1,6 +1,6 @@
 email,firstName,lastName,currency,moneyAmount
-,firstName,lastName,UDS,340
-email@email.com,,lastName,UDS,340
-email@email.com,firstName,,UDS,340
+,firstName,lastName,USD,340
+email@email.com,,lastName,USD,340
+email@email.com,firstName,,USD,340
 email@email.com,firstName,lastName,,340
-email@email.com,firstName,lastName,UDS,
+email@email.com,firstName,lastName,USD,null
