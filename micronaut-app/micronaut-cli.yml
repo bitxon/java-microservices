@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: bitxon.micronaut
+testFramework: junit
+sourceLanguage: java
+buildTool: gradle
+features: [annotation-api, app-name, assertj, data, data-jpa, gradle, hibernate-validator, http-client, jackson-databind, java, java-application, jdbc-hikari, junit, logback, lombok, management, micronaut-build, netty-server, postgres, readme, shade, test-resources, testcontainers, yaml]
