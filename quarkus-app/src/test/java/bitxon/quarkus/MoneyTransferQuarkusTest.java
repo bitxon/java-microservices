@@ -83,4 +83,24 @@ public class MoneyTransferQuarkusTest extends AbstractQuarkusTest {
         //@formatter:on
     }
 
+    @Test
+    void transferWithoutRequiredField() {
+
+        var requestBody = MoneyTransfer.builder()
+            .senderId(1L)
+            .recipientId(2L)
+            .moneyAmount(null) // Required field is null
+            .build();
+
+        //@formatter:off
+        given()
+            .body(requestBody)
+            .contentType(ContentType.JSON)
+        .when()
+            .post("/accounts/transfers")
+        .then()
+            .statusCode(400);
+        //@formatter:on
+    }
+
 }

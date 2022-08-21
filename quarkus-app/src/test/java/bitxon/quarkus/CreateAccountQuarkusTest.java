@@ -31,4 +31,26 @@ public class CreateAccountQuarkusTest extends AbstractQuarkusTest {
         //@formatter:off
     }
 
+    @Test
+    void createWithMissedEmail() {
+        var account = Account.builder()
+            .email(null) // Required field is null
+            .firstName("MyName")
+            .lastName("FamilyName")
+            .currency("USD")
+            .moneyAmount(893)
+            .build();
+
+        //@formatter:off
+        given()
+            .body(account)
+            .contentType(ContentType.JSON)
+        .when()
+            .post("/accounts")
+        .then()
+            .statusCode(400);
+        //@formatter:off
+    }
+
+
 }

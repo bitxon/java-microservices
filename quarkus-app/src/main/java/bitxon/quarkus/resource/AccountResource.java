@@ -5,6 +5,7 @@ import static bitxon.api.constant.Constants.DirtyTrick.FAIL_TRANSFER;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
@@ -44,7 +45,7 @@ public class AccountResource {
 
     @POST
     @Transactional
-    public Account create(Account account) {
+    public Account create(@Valid Account account) {
         return Optional.of(account)
             .map(mapper::mapToDb)
             .map(dao::save)
@@ -55,7 +56,7 @@ public class AccountResource {
     @POST
     @Path("/transfers")
     @Transactional
-    public void transfer(MoneyTransfer transfer,
+    public void transfer(@Valid MoneyTransfer transfer,
                          @HeaderParam(DIRTY_TRICK_HEADER) String dirtyTrick) {
         var sender = dao.findByIdOptional(transfer.getSenderId())
             .orElseThrow(() -> new RuntimeException("Sender not found"));
