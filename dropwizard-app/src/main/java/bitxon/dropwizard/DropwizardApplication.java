@@ -10,8 +10,7 @@ import bitxon.dropwizard.resource.AccountResource;
 import io.dropwizard.Application;
 import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.db.DataSourceFactory;
-import io.dropwizard.db.PooledDataSourceFactory;
-import io.dropwizard.hibernate.dual.HibernateBundle;
+import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.glassfish.jersey.internal.inject.AbstractBinder;
@@ -65,10 +64,6 @@ public class DropwizardApplication extends Application<DropwizardConfiguration> 
 
 
     private final HibernateBundle<DropwizardConfiguration> hibernate = new HibernateBundle<>(Account.class) {
-        @Override
-        public PooledDataSourceFactory getReadSourceFactory(DropwizardConfiguration configuration) {
-            return configuration.getDatabase();
-        }
 
         @Override
         public DataSourceFactory getDataSourceFactory(DropwizardConfiguration configuration) {
