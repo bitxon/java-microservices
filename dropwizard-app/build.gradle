@@ -14,10 +14,11 @@ repositories {
 
 dependencies {
     implementation project(":common-api")
-    implementation 'io.dropwizard:dropwizard-core:2.1.1'
-    implementation 'io.dropwizard:dropwizard-client:2.1.1'
-    implementation 'io.dropwizard:dropwizard-validation:2.1.1'
-    implementation 'io.dropwizard:dropwizard-hibernate:2.1.1'
+    implementation enforcedPlatform("io.dropwizard:dropwizard-bom:2.1.1")
+    implementation 'io.dropwizard:dropwizard-core'
+    implementation 'io.dropwizard:dropwizard-client'
+    implementation 'io.dropwizard:dropwizard-validation'
+    implementation 'io.dropwizard:dropwizard-hibernate'
     implementation 'org.mapstruct:mapstruct:1.5.2.Final'
 
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
@@ -27,7 +28,7 @@ dependencies {
 
     runtimeOnly 'org.postgresql:postgresql:42.4.0'
 
-    testImplementation 'io.dropwizard:dropwizard-testing:2.1.1'
+    testImplementation 'io.dropwizard:dropwizard-testing'
     testImplementation project(":common-wiremock")
     testImplementation 'com.github.tomakehurst:wiremock-jre8:2.33.2'
     testImplementation 'org.testcontainers:testcontainers:1.17.3'
@@ -35,9 +36,9 @@ dependencies {
     testImplementation 'org.testcontainers:postgresql:1.17.3'
     testImplementation 'org.assertj:assertj-core:3.23.1'
     testImplementation 'io.rest-assured:rest-assured:5.1.1'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }
 
 test {
