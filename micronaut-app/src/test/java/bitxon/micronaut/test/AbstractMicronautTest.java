@@ -1,12 +1,10 @@
-package bitxon.micronaut;
+package bitxon.micronaut.test;
 
 import java.util.Map;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import io.micronaut.http.client.HttpClient;
-import io.micronaut.http.client.annotation.Client;
 import io.micronaut.runtime.EmbeddedApplication;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import io.micronaut.test.support.TestPropertyProvider;
@@ -32,13 +30,6 @@ abstract class AbstractMicronautTest implements TestPropertyProvider {
 
     @Inject
     private EmbeddedApplication<?> application;
-    @Inject
-    @Client("/accounts")
-    private HttpClient client;
-
-    protected HttpClient client() {
-        return client;
-    }
 
     @Override
     public Map<String, String> getProperties() {
