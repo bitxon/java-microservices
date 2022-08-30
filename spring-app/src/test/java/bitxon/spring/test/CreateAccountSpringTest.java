@@ -1,8 +1,10 @@
-package bitxon.spring;
+package bitxon.spring.test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.notNullValue;
 
 import bitxon.api.model.Account;
+import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
 class CreateAccountSpringTest extends AbstractSpringTest {
@@ -17,10 +19,16 @@ class CreateAccountSpringTest extends AbstractSpringTest {
             .moneyAmount(893)
             .build();
 
-        var response = client()
-            .postForEntity("/accounts", account, Account.class);
-
-        assertThat(response.getStatusCodeValue()).isEqualTo(200);
+        //@formatter:off
+        given()
+            .body(account)
+            .contentType(ContentType.JSON)
+        .when()
+            .post("/accounts")
+        .then()
+            .statusCode(200)
+            .body("id", notNullValue());
+        //@formatter:on
     }
 
     @Test
@@ -33,9 +41,14 @@ class CreateAccountSpringTest extends AbstractSpringTest {
             .moneyAmount(893)
             .build();
 
-        var response = client()
-            .postForEntity("/accounts", account, Account.class);
-
-        assertThat(response.getStatusCodeValue()).isEqualTo(400); // TODO should be 422
+        //@formatter:off
+        given()
+            .body(account)
+            .contentType(ContentType.JSON)
+        .when()
+            .post("/accounts")
+        .then()
+            .statusCode(400);
+        //@formatter:on
     }
 }

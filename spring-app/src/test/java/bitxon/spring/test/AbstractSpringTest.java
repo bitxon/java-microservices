@@ -1,11 +1,13 @@
-package bitxon.spring;
+package bitxon.spring.test;
 
+import bitxon.spring.SpringAppApplication;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.restassured.RestAssured;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -43,11 +45,12 @@ abstract class AbstractSpringTest {
         registry.add("wiremock.server.port", WIREMOCK::port);
     }
 
-    @Autowired
-    private TestRestTemplate client;
+    @LocalServerPort
+    private Integer port;
 
-    protected TestRestTemplate client() {
-        return client;
+    @BeforeEach
+    public void setUp() {
+        RestAssured.port = port;
     }
 
 }
