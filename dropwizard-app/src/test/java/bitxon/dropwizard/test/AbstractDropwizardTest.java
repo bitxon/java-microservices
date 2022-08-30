@@ -1,17 +1,15 @@
-package bitxon.dropwizard;
-
+package bitxon.dropwizard.test;
 
 import static io.dropwizard.testing.ConfigOverride.config;
 
-import javax.ws.rs.client.Client;
-
-
+import bitxon.dropwizard.DropwizardApplication;
+import bitxon.dropwizard.DropwizardConfiguration;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.testing.DropwizardTestSupport;
 import io.dropwizard.testing.ResourceHelpers;
+import io.restassured.RestAssured;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
@@ -21,7 +19,6 @@ abstract class AbstractDropwizardTest {
     private static final PostgreSQLContainer DB;
     public static final WireMockServer WIREMOCK;
     private static final DropwizardTestSupport<DropwizardConfiguration> APP;
-    private static final Client CLIENT;
 
     static {
         DB = (PostgreSQLContainer) new PostgreSQLContainer(DockerImageName.parse("postgres").withTag("14.4"))
@@ -53,16 +50,7 @@ abstract class AbstractDropwizardTest {
             throw new RuntimeException(e);
         }
 
-        CLIENT = new JerseyClientBuilder(APP.getEnvironment()).build("test-client");
-
-    }
-
-    protected Client client() {
-        return CLIENT;
-    }
-
-    protected int appLocalPort() {
-        return APP.getLocalPort();
+        RestAssured.port = APP.getLocalPort();
     }
 
 }
