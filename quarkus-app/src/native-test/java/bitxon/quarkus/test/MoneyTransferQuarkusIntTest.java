@@ -1,5 +1,6 @@
-package bitxon.quarkus;
+package bitxon.quarkus.test;
 
+import bitxon.quarkus.test.MoneyTransferQuarkusTest;
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
 @QuarkusIntegrationTest

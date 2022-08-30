@@ -1,7 +1,7 @@
-package bitxon.quarkus;
+package bitxon.quarkus.test;
 
-import bitxon.quarkus.ext.PostgresTestResourceLifecycleManager;
-import bitxon.quarkus.ext.WiremockTestResourceLifecycleManager;
+import bitxon.quarkus.test.ext.PostgresTestResourceLifecycleManager;
+import bitxon.quarkus.test.ext.WiremockTestResourceLifecycleManager;
 import io.quarkus.test.common.QuarkusTestResource;
 
 @QuarkusTestResource(PostgresTestResourceLifecycleManager.class)

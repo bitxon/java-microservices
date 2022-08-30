@@ -1,4 +1,4 @@
-package bitxon.quarkus.ext;
+package bitxon.quarkus.test.ext;
 
 import java.util.Map;
 

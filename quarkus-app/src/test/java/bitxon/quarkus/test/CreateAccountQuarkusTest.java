@@ -1,4 +1,4 @@
-package bitxon.quarkus;
+package bitxon.quarkus.test;
 
 import static io.restassured.RestAssured.given;
 
