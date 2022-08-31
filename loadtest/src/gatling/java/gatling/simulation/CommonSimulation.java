@@ -3,6 +3,7 @@ package gatling.simulation;
 import static io.gatling.javaapi.core.CoreDsl.*;
 import static io.gatling.javaapi.http.HttpDsl.*;
 
+import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
@@ -24,6 +25,7 @@ public class CommonSimulation extends Simulation {
             "email", UUID.randomUUID() + "@mail.com",
             "firstName", UUID.randomUUID().toString().replace("-", ""),
             "lastName", UUID.randomUUID().toString().replace("-", ""),
+            "dateOfBirth", LocalDate.of(1990, 1, 1),
             "currency", "USD",
             "moneyAmount", 340
         )
@@ -49,6 +51,7 @@ public class CommonSimulation extends Simulation {
                     "email": "#{email}",
                     "firstName": "#{firstName}",
                     "lastName": "#{lastName}",
+                    "dateOfBirth": "#{dateOfBirth}",
                     "currency": "#{currency}",
                     "moneyAmount": #{moneyAmount}
                 }
@@ -67,6 +70,7 @@ public class CommonSimulation extends Simulation {
                     "email": "#{email}",
                     "firstName": "#{firstName}",
                     "lastName": "#{lastName}",
+                    "dateOfBirth": "#{dateOfBirth}",
                     "currency": "#{currency}",
                     "moneyAmount": #{moneyAmount}
                 }

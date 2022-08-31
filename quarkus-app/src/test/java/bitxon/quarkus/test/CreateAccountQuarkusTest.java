@@ -2,6 +2,8 @@ package bitxon.quarkus.test;
 
 import static io.restassured.RestAssured.given;
 
+import java.time.LocalDate;
+
 import bitxon.api.model.Account;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
@@ -16,6 +18,7 @@ public class CreateAccountQuarkusTest extends AbstractQuarkusTest {
             .email("some-email@example.com")
             .firstName("MyName")
             .lastName("FamilyName")
+            .dateOfBirth(LocalDate.of(1990, 1, 1))
             .currency("USD")
             .moneyAmount(893)
             .build();
@@ -37,6 +40,7 @@ public class CreateAccountQuarkusTest extends AbstractQuarkusTest {
             .email(null) // Required field is null
             .firstName("MyName")
             .lastName("FamilyName")
+            .dateOfBirth(LocalDate.of(1990, 1, 1))
             .currency("USD")
             .moneyAmount(893)
             .build();

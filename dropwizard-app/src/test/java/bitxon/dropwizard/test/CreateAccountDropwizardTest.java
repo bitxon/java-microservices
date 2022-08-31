@@ -4,6 +4,8 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.notNullValue;
 
 
+import java.time.LocalDate;
+
 import bitxon.api.model.Account;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
@@ -16,6 +18,7 @@ class CreateAccountDropwizardTest extends AbstractDropwizardTest {
             .email("some-email@example.com")
             .firstName("MyName")
             .lastName("FamilyName")
+            .dateOfBirth(LocalDate.of(1990, 1, 1))
             .currency("USD")
             .moneyAmount(893)
             .build();
@@ -38,6 +41,7 @@ class CreateAccountDropwizardTest extends AbstractDropwizardTest {
             .email(null)  // Required field is null
             .firstName("MyName")
             .lastName("FamilyName")
+            .dateOfBirth(LocalDate.of(1990, 1, 1))
             .currency("USD")
             .moneyAmount(893)
             .build();

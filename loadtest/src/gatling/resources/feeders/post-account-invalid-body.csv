@@ -1,6 +1,7 @@
-email,firstName,lastName,currency,moneyAmount
-,firstName,lastName,USD,340
-email@email.com,,lastName,USD,340
-email@email.com,firstName,,USD,340
-email@email.com,firstName,lastName,,340
-email@email.com,firstName,lastName,USD,null
+email,firstName,lastName,dateOfBirth,currency,moneyAmount
+,firstName,lastName,1990-01-01,USD,340
+email@email.com,,lastName,1990-01-01,USD,340
+email@email.com,firstName,,1990-01-01,USD,340
+email@email.com,firstName,lastName,,USD,340
+email@email.com,firstName,lastName,1990-01-01,,340
+email@email.com,firstName,lastName,1990-01-01,USD,null

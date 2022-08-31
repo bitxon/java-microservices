@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import java.time.LocalDate;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,6 +37,8 @@ public class Account {
     private String firstName;
     @Column(name = "last_name", nullable = false)
     private String lastName;
+    @Column(name = "date_of_birth", nullable = false)
+    private LocalDate dateOfBirth;
     @Column(name = "currency", nullable = false)
     private String currency;
     @Column(name = "money_amount", nullable = false)
