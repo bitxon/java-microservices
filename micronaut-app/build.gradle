@@ -1,6 +1,7 @@
 plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
-    id("io.micronaut.application") version "3.5.1"
+    id("io.micronaut.application") version "3.5.3"
+    id("io.micronaut.test-resources") version "3.5.3"
 }
 
 group = 'bitxon'
@@ -45,7 +46,7 @@ application {
 
 graalvmNative.toolchainDetection = false
 micronaut {
-    version("3.6.0")
+    version("3.6.1")
     runtime("netty")
     testRuntime("junit5")
     processing {
