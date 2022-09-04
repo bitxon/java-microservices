@@ -7,8 +7,7 @@ micronaut:
 
 datasources:
   default:
-    url: jdbc:tc:postgresql:14.4:///postgres?TC_INITSCRIPT=file:src/test/resources/sql/db-test-data.sql
-    driverClassName: org.testcontainers.jdbc.ContainerDatabaseDriver
+    url: 'will-be-replaced-in-test'
 
 jpa:
   default:
