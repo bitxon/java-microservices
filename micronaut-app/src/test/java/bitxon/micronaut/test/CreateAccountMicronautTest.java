@@ -1,6 +1,7 @@
 package bitxon.micronaut.test;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.notNullValue;
 
 import java.time.LocalDate;
@@ -53,7 +54,8 @@ class CreateAccountMicronautTest extends AbstractMicronautTest {
         .when()
             .post("/accounts")
         .then()
-            .statusCode(400);
+            .statusCode(422)
+            .body("errors", hasItem("'email' must not be empty"));
         //@formatter:on
     }
 

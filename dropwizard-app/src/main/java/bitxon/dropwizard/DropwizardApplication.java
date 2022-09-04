@@ -5,6 +5,7 @@ import bitxon.dropwizard.customization.ClasspathOrFileConfigurationSourceProvide
 import bitxon.dropwizard.db.AccountDao;
 import bitxon.dropwizard.db.AccountDaoHibernateImpl;
 import bitxon.dropwizard.db.model.Account;
+import bitxon.dropwizard.errorhandler.JerseyViolationExceptionHandler;
 import bitxon.dropwizard.mapper.AccountMapper;
 import bitxon.dropwizard.resource.AccountResource;
 import io.dropwizard.Application;
@@ -60,6 +61,8 @@ public class DropwizardApplication extends Application<DropwizardConfiguration> 
 
 
         environment.jersey().register(AccountResource.class);
+
+        environment.jersey().register(JerseyViolationExceptionHandler.class);
     }
 
 

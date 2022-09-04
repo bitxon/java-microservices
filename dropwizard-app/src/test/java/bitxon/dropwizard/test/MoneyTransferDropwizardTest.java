@@ -5,6 +5,7 @@ import static bitxon.common.api.constant.Constants.DirtyTrick.FAIL_TRANSFER;
 import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 
 import bitxon.common.api.model.MoneyTransfer;
@@ -95,7 +96,8 @@ class MoneyTransferDropwizardTest extends AbstractDropwizardTest {
         .when()
             .post("/accounts/transfers")
         .then()
-            .statusCode(422);
+            .statusCode(422)
+            .body("errors", hasItem("'moneyAmount' must not be null"));
         //@formatter:on
     }
 }

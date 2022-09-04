@@ -1,6 +1,7 @@
 package bitxon.dropwizard.test;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.notNullValue;
 
 
@@ -53,7 +54,8 @@ class CreateAccountDropwizardTest extends AbstractDropwizardTest {
         .when()
             .post("/accounts")
         .then()
-            .statusCode(422);
+            .statusCode(422)
+            .body("errors", hasItem("'email' must not be empty"));
         //@formatter:on
     }
 }

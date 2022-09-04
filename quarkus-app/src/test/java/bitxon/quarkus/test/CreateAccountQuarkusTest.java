@@ -1,6 +1,7 @@
 package bitxon.quarkus.test;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.hasItem;
 
 import java.time.LocalDate;
 
@@ -52,7 +53,8 @@ public class CreateAccountQuarkusTest extends AbstractQuarkusTest {
         .when()
             .post("/accounts")
         .then()
-            .statusCode(400);
+            .statusCode(422)
+            .body("errors", hasItem("'email' must not be empty"));
         //@formatter:off
     }
 

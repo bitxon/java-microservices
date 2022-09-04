@@ -4,6 +4,7 @@ import static bitxon.common.api.constant.Constants.DIRTY_TRICK_HEADER;
 import static bitxon.common.api.constant.Constants.DirtyTrick.FAIL_TRANSFER;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 
 import bitxon.common.api.model.MoneyTransfer;
@@ -96,7 +97,8 @@ class MoneyTransferMicronautTest extends AbstractMicronautTest {
         .when()
             .post("/accounts/transfers")
         .then()
-            .statusCode(400);
+            .statusCode(422)
+            .body("errors", hasItem("'moneyAmount' must not be null"));
         //@formatter:on
     }
 
