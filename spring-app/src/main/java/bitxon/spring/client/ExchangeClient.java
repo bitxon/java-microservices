@@ -1,23 +1,13 @@
 package bitxon.spring.client;
 
 import bitxon.api.thirdparty.exchange.model.ExchangeRate;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@Component
-@RequiredArgsConstructor
-public class ExchangeClient {
+@FeignClient(name = "exchange-client", url = "${feign.client.config.exchange-client.url}")
+public interface ExchangeClient {
 
-    private final RestTemplate restTemplate;
-    private final ExchangeClientProperties exchangeClientProperties;
-
-
-    public ExchangeRate getExchangeRate(String currency) {
-        var response = restTemplate.getForObject(
-            exchangeClientProperties.getBasePath() + currency,
-            ExchangeRate.class
-        );
-        return response;
-    }
+    @GetMapping("/exchanges")
+    ExchangeRate getExchangeRate(@RequestParam("currency") String currency);
 }
