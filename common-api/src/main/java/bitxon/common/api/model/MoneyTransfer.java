@@ -1,4 +1,4 @@
-package bitxon.api.model;
+package bitxon.common.api.model;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;

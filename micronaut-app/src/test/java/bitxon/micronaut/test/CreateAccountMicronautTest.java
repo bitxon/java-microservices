@@ -5,7 +5,7 @@ import static org.hamcrest.Matchers.notNullValue;
 
 import java.time.LocalDate;
 
-import bitxon.api.model.Account;
+import bitxon.common.api.model.Account;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 

@@ -2,6 +2,6 @@ plugins {
     id 'java'
 }
 
-group = 'bitxon'
+group = 'bitxon.common'
 version = '1.0-SNAPSHOT'
 sourceCompatibility = '17'

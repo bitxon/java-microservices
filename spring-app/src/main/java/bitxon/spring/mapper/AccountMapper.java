@@ -1,6 +1,6 @@
 package bitxon.spring.mapper;
 
-import bitxon.api.model.Account;
+import bitxon.common.api.model.Account;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;

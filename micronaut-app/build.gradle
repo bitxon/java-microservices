@@ -4,7 +4,7 @@ plugins {
     id("io.micronaut.test-resources") version "3.5.3"
 }
 
-group = 'bitxon'
+group = 'bitxon.micronaut'
 version = '1.0-SNAPSHOT'
 sourceCompatibility = '17'
 

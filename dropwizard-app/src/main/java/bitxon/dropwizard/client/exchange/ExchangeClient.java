@@ -2,7 +2,7 @@ package bitxon.dropwizard.client.exchange;
 
 import javax.ws.rs.client.Client;
 
-import bitxon.api.thirdparty.exchange.model.ExchangeRate;
+import bitxon.common.api.thirdparty.exchange.model.ExchangeRate;
 import bitxon.dropwizard.DropwizardConfiguration;
 import lombok.RequiredArgsConstructor;
 

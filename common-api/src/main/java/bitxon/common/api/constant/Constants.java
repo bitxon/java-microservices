@@ -1,4 +1,4 @@
-package bitxon.api.constant;
+package bitxon.common.api.constant;
 
 import lombok.experimental.UtilityClass;
 

@@ -1,7 +1,7 @@
 package bitxon.dropwizard.resource;
 
-import static bitxon.api.constant.Constants.DIRTY_TRICK_HEADER;
-import static bitxon.api.constant.Constants.DirtyTrick.FAIL_TRANSFER;
+import static bitxon.common.api.constant.Constants.DIRTY_TRICK_HEADER;
+import static bitxon.common.api.constant.Constants.DirtyTrick.FAIL_TRANSFER;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import bitxon.api.model.Account;
-import bitxon.api.model.MoneyTransfer;
+import bitxon.common.api.model.Account;
+import bitxon.common.api.model.MoneyTransfer;
 import bitxon.dropwizard.client.exchange.ExchangeClient;
 import bitxon.dropwizard.db.AccountDao;
 import bitxon.dropwizard.mapper.AccountMapper;

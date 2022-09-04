@@ -4,7 +4,7 @@ import static io.restassured.RestAssured.given;
 
 import java.time.LocalDate;
 
-import bitxon.api.model.Account;
+import bitxon.common.api.model.Account;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;

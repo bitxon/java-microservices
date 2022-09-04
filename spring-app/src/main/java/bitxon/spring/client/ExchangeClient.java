@@ -1,6 +1,6 @@
 package bitxon.spring.client;
 
-import bitxon.api.thirdparty.exchange.model.ExchangeRate;
+import bitxon.common.api.thirdparty.exchange.model.ExchangeRate;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

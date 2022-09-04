@@ -1,4 +1,4 @@
-package bitxon.api.thirdparty.exchange.model;
+package bitxon.common.api.thirdparty.exchange.model;
 
 import java.util.Map;
 

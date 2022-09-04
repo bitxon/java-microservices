@@ -1,4 +1,4 @@
-package bitxon.api.model;
+package bitxon.common.api.model;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

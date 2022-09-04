@@ -1,7 +1,7 @@
 package bitxon.quarkus.resource;
 
-import static bitxon.api.constant.Constants.DIRTY_TRICK_HEADER;
-import static bitxon.api.constant.Constants.DirtyTrick.FAIL_TRANSFER;
+import static bitxon.common.api.constant.Constants.DIRTY_TRICK_HEADER;
+import static bitxon.common.api.constant.Constants.DirtyTrick.FAIL_TRANSFER;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -15,12 +15,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import bitxon.api.model.Account;
-import bitxon.api.model.MoneyTransfer;
+import bitxon.common.api.model.Account;
+import bitxon.common.api.model.MoneyTransfer;
 import bitxon.quarkus.client.exchange.ExchangeClient;
 import bitxon.quarkus.db.AccountDao;
 import bitxon.quarkus.mapper.AccountMapper;
-import lombok.RequiredArgsConstructor;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 @Path("/accounts")

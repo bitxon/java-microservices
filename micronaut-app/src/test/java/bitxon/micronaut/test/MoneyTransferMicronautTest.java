@@ -1,12 +1,12 @@
 package bitxon.micronaut.test;
 
-import static bitxon.api.constant.Constants.DIRTY_TRICK_HEADER;
-import static bitxon.api.constant.Constants.DirtyTrick.FAIL_TRANSFER;
+import static bitxon.common.api.constant.Constants.DIRTY_TRICK_HEADER;
+import static bitxon.common.api.constant.Constants.DirtyTrick.FAIL_TRANSFER;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
-import bitxon.api.model.MoneyTransfer;
+import bitxon.common.api.model.MoneyTransfer;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
