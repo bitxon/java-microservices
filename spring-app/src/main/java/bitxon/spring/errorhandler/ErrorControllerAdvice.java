@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import bitxon.common.api.model.error.ErrorResponse;
+import bitxon.common.exception.ResourceNotFoundException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
@@ -22,6 +23,11 @@ public class ErrorControllerAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handle(Exception ex) {
         return create(500, "Unknown error, see logs.");
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<Object> handle(ResourceNotFoundException ex) {
+        return create(404, ex.getMessage());
     }
 
     @Override

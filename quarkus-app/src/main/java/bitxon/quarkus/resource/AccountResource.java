@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 import bitxon.common.api.model.Account;
 import bitxon.common.api.model.MoneyTransfer;
+import bitxon.common.exception.ResourceNotFoundException;
 import bitxon.quarkus.client.exchange.ExchangeClient;
 import bitxon.quarkus.db.AccountDao;
 import bitxon.quarkus.mapper.AccountMapper;
@@ -46,7 +47,7 @@ public class AccountResource {
     public Account getById(@PathParam("id") Long id) {
         return dao.findByIdOptional(id)
             .map(mapper::mapToApi)
-            .orElseThrow(() -> new RuntimeException("Resource not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("Resource not found"));
     }
 
     @POST
@@ -65,10 +66,10 @@ public class AccountResource {
     public void transfer(@Valid MoneyTransfer transfer,
                          @HeaderParam(DIRTY_TRICK_HEADER) String dirtyTrick) {
         var sender = dao.findByIdOptional(transfer.getSenderId())
-            .orElseThrow(() -> new RuntimeException("Sender not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("Sender not found"));
 
         var recipient = dao.findByIdOptional(transfer.getRecipientId())
-            .orElseThrow(() -> new RuntimeException("Recipient not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("Recipient not found"));
 
         var exchangeRateValue = exchangeClient.getExchangeRate(sender.getCurrency())
             .getRates().getOrDefault(recipient.getCurrency(), 1.0);

@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import bitxon.common.api.model.Account;
 import bitxon.common.api.model.MoneyTransfer;
+import bitxon.common.exception.ResourceNotFoundException;
 import bitxon.spring.client.ExchangeClient;
 import bitxon.spring.db.AccountDao;
 import bitxon.spring.mapper.AccountMapper;
@@ -47,7 +48,7 @@ public class AccountController {
     public Account getById(@PathVariable("id") Long id) {
         return dao.findById(id)
             .map(mapper::mapToApi)
-            .orElseThrow(() -> new RuntimeException("Resource not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("Resource not found"));
     }
 
     @PostMapping
@@ -67,10 +68,10 @@ public class AccountController {
                          @RequestHeader(value = DIRTY_TRICK_HEADER, required = false) String dirtyTrick) {
 
         var sender = dao.findById(transfer.getSenderId())
-            .orElseThrow(() -> new RuntimeException("Sender not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("Sender not found"));
 
         var recipient = dao.findById(transfer.getRecipientId())
-            .orElseThrow(() -> new RuntimeException("Recipient not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("Recipient not found"));
 
         var exchangeRateValue = exchangeClient.getExchangeRate(sender.getCurrency())
             .getRates().getOrDefault(recipient.getCurrency(), 1.0);
