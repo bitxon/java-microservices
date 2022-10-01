@@ -14,7 +14,7 @@ repositories {
 
 dependencies {
     implementation project(":common-api")
-    implementation enforcedPlatform("io.dropwizard:dropwizard-bom:2.1.1")
+    implementation enforcedPlatform("io.dropwizard:dropwizard-bom:2.1.2")
     implementation 'io.dropwizard:dropwizard-core'
     implementation 'io.dropwizard:dropwizard-client'
     implementation 'io.dropwizard:dropwizard-validation'
