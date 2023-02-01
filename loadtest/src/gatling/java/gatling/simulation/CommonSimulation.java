@@ -16,7 +16,7 @@ import io.gatling.javaapi.http.*;
 
 public class CommonSimulation extends Simulation {
 
-    static final String BASE_URL = System.getProperty("base.url", "http://localhost:8080/accounts");
+    static final String BASE_URL = System.getProperty("base.url", "http://localhost:8080");
 
     //-----------------------------------------------------------------------------------------------------------------
 
@@ -44,7 +44,7 @@ public class CommonSimulation extends Simulation {
 
     private static ChainBuilder postAccount(String sessionFieldNameForId) {
         return exec().feed(feederPost).exec(http("Create")
-            .post("/")
+            .post("/accounts")
             .header("Content-Type", "application/json")
             .body(StringBody("""
                 {
@@ -63,7 +63,7 @@ public class CommonSimulation extends Simulation {
 
     private static ChainBuilder postInvalidAccount() {
         return exec().feed(feederInvalidPost).exec(http("Create (400,422)")
-            .post("/")
+            .post("/accounts")
             .header("Content-Type", "application/json")
             .body(StringBody("""
                 {
@@ -81,21 +81,21 @@ public class CommonSimulation extends Simulation {
 
     private static ChainBuilder getOneAccountById() {
         return exec(http("Get One")
-            .get("/#{id}")
+            .get("/accounts/#{id}")
             .check(status().is(200))
         );
     }
 
     private static ChainBuilder getAllAccounts() {
         return exec(http("Get All")
-            .get("/")
+            .get("/accounts")
             .check(status().is(200))
         );
     }
 
     private static ChainBuilder postTransfer() {
         return exec().feed(feederTransfer).exec(http("Transfer")
-            .post("/transfers")
+            .post("/accounts/transfers")
             .header("Content-Type", "application/json")
             .body(StringBody("""
                 {
