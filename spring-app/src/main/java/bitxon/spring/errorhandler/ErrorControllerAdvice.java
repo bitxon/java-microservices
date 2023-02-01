@@ -8,7 +8,7 @@ import bitxon.common.exception.ResourceNotFoundException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -33,7 +33,7 @@ public class ErrorControllerAdvice extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers,
-                                                                  HttpStatus status,
+                                                                  HttpStatusCode status,
                                                                   WebRequest request) {
         var messages = ex.getBindingResult().getFieldErrors().stream()
             .map(error -> String.format("'%s' %s", error.getField(), error.getDefaultMessage()))
@@ -43,7 +43,7 @@ public class ErrorControllerAdvice extends ResponseEntityExceptionHandler {
 
     private static ResponseEntity<Object> create(int httpCode, List<String> messages) {
         var error = new ErrorResponse(messages);
-        var response = new ResponseEntity<Object>(error, HttpStatus.valueOf(httpCode));
+        var response = new ResponseEntity<Object>(error, HttpStatusCode.valueOf(httpCode));
         return response;
     }
 
