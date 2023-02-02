@@ -139,3 +139,19 @@ N/A
 ```
 
 </details>
+
+# Comparison
+
+|                              | Quarkus | Micronaut | Dropwizard | Spring                                     |
+|------------------------------|---------|-----------|------------|--------------------------------------------|
+| Memory consumption on start  | 41 Mb   | 65 Mb     | 90 Mb      | 160 Mb                                     |
+| Memory allocated after GC    | 18 Mb   | 18 Mb     | 21 Mb      | 25 Mb                                      |
+| Min -Xmx to start app        | 9 Mb    | 17 Mb     | 17 Mb      | 17 Mb                                      |
+| Best start time              | 0.836 s | 0.973 s   | 1.574 s    | 2.325 s                                    |
+| Jar size                     | 38 Mb   | 33 Mb     | 35 Mb      | 41 Mb                                      |
+| # questions on stackoverflow | 6k      | 3k        | 5k         | 200k                                       |
+| # GitHub stars               | 10k     | 5k        | 8k         | 62k                                        |
+| Based on server              | Netty   | Netty     | Jetty      | Tomcat<br/> Jetty<br/> Netty<br/> Undertow |
+
+
+# TODO - add performance comparison table and images from VisualVm
