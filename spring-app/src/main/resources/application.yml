@@ -13,11 +13,9 @@ spring:
   jpa.hibernate.ddl-auto: create-drop
   #jpa.show-sql: true
 
-feign:
-  client:
-    config:
-      exchange-client:
-        url: http://localhost:8888
+http:
+  exchange-client:
+    url: http://localhost:8888
 
 logging:
   level:

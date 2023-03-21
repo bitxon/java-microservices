@@ -13,11 +13,9 @@ spring:
   jpa.hibernate.ddl-auto: none
   #jpa.show-sql: true
 
-feign:
-  client:
-    config:
-      exchange-client:
-        url: "http://localhost:${wiremock.server.port}"
+http:
+  exchange-client:
+    url: "http://localhost:${wiremock.server.port}"
 
 logging:
   level:
