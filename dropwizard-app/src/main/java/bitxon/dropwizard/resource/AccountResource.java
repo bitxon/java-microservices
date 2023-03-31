@@ -3,23 +3,23 @@ package bitxon.dropwizard.resource;
 import static bitxon.common.api.constant.Constants.DIRTY_TRICK_HEADER;
 import static bitxon.common.api.constant.Constants.DirtyTrick.FAIL_TRANSFER;
 
-import javax.inject.Inject;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.ws.rs.GET;
-import javax.ws.rs.HeaderParam;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import jakarta.inject.Inject;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.HeaderParam;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import bitxon.common.api.model.Account;
-import bitxon.common.api.model.MoneyTransfer;
+import bitxon.dropwizard.api.model.Account;
+import bitxon.dropwizard.api.model.MoneyTransfer;
 import bitxon.common.exception.ResourceNotFoundException;
 import bitxon.dropwizard.client.exchange.ExchangeClient;
 import bitxon.dropwizard.db.AccountDao;

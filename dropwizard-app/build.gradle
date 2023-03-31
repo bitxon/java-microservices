@@ -14,7 +14,7 @@ repositories {
 
 dependencies {
     implementation project(":common-api")
-    implementation enforcedPlatform("io.dropwizard:dropwizard-bom:2.1.4")
+    implementation enforcedPlatform("io.dropwizard:dropwizard-bom:4.0.0")
     implementation 'io.dropwizard:dropwizard-core'
     implementation 'io.dropwizard:dropwizard-client'
     implementation 'io.dropwizard:dropwizard-validation'
@@ -30,7 +30,8 @@ dependencies {
 
     testImplementation 'io.dropwizard:dropwizard-testing'
     testImplementation project(":common-wiremock")
-    testImplementation 'com.github.tomakehurst:wiremock-jre8:2.35.0'
+    // TODO switch to wiremock 3 after https://github.com/wiremock/wiremock/issues/1967
+    testImplementation 'com.github.tomakehurst:wiremock-jre8-standalone:2.35.0'
     testImplementation 'org.testcontainers:testcontainers:1.17.6'
     testImplementation 'org.testcontainers:junit-jupiter:1.17.6'
     testImplementation 'org.testcontainers:postgresql:1.17.6'
