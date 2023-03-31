@@ -1,9 +1,9 @@
 package bitxon.dropwizard.errorhandler;
 
-import javax.validation.Path;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
+import jakarta.validation.Path;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.ext.ExceptionMapper;
+import jakarta.ws.rs.ext.Provider;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 

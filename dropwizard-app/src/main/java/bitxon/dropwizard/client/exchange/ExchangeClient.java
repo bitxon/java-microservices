@@ -1,6 +1,6 @@
 package bitxon.dropwizard.client.exchange;
 
-import javax.ws.rs.client.Client;
+import jakarta.ws.rs.client.Client;
 
 import bitxon.common.api.thirdparty.exchange.model.ExchangeRate;
 import bitxon.dropwizard.DropwizardConfiguration;

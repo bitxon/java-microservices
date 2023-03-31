@@ -9,12 +9,13 @@ import bitxon.dropwizard.errorhandler.JerseyViolationExceptionHandler;
 import bitxon.dropwizard.errorhandler.ResourceNotFoundExceptionHandler;
 import bitxon.dropwizard.mapper.AccountMapper;
 import bitxon.dropwizard.resource.AccountResource;
-import io.dropwizard.Application;
 import io.dropwizard.client.JerseyClientBuilder;
+import io.dropwizard.core.Application;
+import io.dropwizard.core.setup.Bootstrap;
+import io.dropwizard.core.setup.Environment;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
-import io.dropwizard.setup.Bootstrap;
-import io.dropwizard.setup.Environment;
+
 import org.glassfish.jersey.internal.inject.AbstractBinder;
 import org.mapstruct.factory.Mappers;
 
