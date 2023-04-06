@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - 'main'
-      - 'feature/**'
   pull_request:
     branches:
       - 'main'
@@ -28,7 +27,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Build with Gradle
-        run: ./gradlew clean build
+        run: ./gradlew clean build --parallel
 
       - name: Quarkus Native Image Test
         run: ./gradlew :quarkus-app:testNative
