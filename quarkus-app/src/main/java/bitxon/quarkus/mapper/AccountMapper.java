@@ -1,6 +1,6 @@
 package bitxon.quarkus.mapper;
 
-import bitxon.common.api.model.Account;
+import bitxon.quarkus.api.model.Account;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
