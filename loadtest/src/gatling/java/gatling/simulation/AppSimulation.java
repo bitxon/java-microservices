@@ -21,7 +21,7 @@ public class AppSimulation extends Simulation {
 
     static final String BASE_URL = System.getProperty("baseUrl", "http://localhost:8080");
     static final int USERS = Integer.getInteger("users", 500);
-    static final int REQUESTS_PER_USER = Integer.getInteger("requestsPerUser", 5); // TODO align with WiremockSimulation value
+    static final int REQUESTS_PER_USER = Integer.getInteger("requestsPerUser", 10); // TODO align with WiremockSimulation value
     static final int DURATION = Integer.getInteger("duration", 20);
 
     //-----------------------------------------------------------------------------------------------------------------
