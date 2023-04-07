@@ -1,4 +1,7 @@
+# https://www.dropwizard.io/en/latest/manual/configuration.html
+
 server:
+  maxThreads: 200 # default=1024
   applicationConnectors:
     - type: http
       port: 8080
@@ -9,12 +12,13 @@ server:
     appenders: [] # Disable default logging (response status)
 
 database:
+  maxSize: 40 # default=100
   driverClass: org.postgresql.Driver
   user: postgres
   password: postgres
   url: jdbc:postgresql://localhost:5432/postgres?loggerLevel=OFF
   properties:
-    hibernate.dialect: org.hibernate.dialect.PostgreSQL95Dialect
+    hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate.hbm2ddl.auto: create-drop
     #hibernate.show_sql: true
     #hibernate.hbm2ddl.import_files:

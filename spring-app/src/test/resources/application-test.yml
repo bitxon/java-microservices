@@ -19,5 +19,5 @@ http:
 
 logging:
   level:
-    root: INFO
-    bitxon.dropwizard: DEBUG
+    root: DEBUG
+    bitxon.spring: DEBUG

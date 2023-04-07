@@ -16,6 +16,6 @@ services:
     image: wiremock/wiremock:2.35.0
     ports:
       - "8888:8080"
-    command: ["--async-response-enabled=true"]
+    command: [ "--async-response-enabled=true", "--no-request-journal" ]
     volumes:
       - ./common-wiremock/src/main/resources/stubs:/home/wiremock

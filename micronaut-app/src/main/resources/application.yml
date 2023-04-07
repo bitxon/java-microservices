@@ -1,8 +1,15 @@
+# https://micronaut-projects.github.io/micronaut-core/latest/guide/configurationreference.html
+
 micronaut:
   application:
     name: micronaut-app
   server:
     port: 8080
+  executors:
+    # https://docs.micronaut.io/latest/guide/index.html#reactiveServer
+    io:
+      type: FIXED # default=CACHED
+      number-of-threads: 200
   http:
     services:
       exchange-client:
@@ -19,6 +26,7 @@ netty:
 
 datasources:
   default:
+    maximum-pool-size: 40 # default=10
     url: ${JDBC_URL:`jdbc:postgresql://localhost:5432/postgres`}
     username: ${JDBC_USER:postgres}
     password: ${JDBC_PASSWORD:postgres}
