@@ -15,7 +15,7 @@ spring:
 
 http:
   exchange-client:
-    url: "http://localhost:${wiremock.server.port}"
+    url: 'will-be-replaced-in-test'
 
 logging:
   level:
