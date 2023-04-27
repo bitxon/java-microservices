@@ -2,33 +2,37 @@ package bitxon.quarkus.test.ext;
 
 import java.util.Map;
 
-import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
-import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.testcontainers.containers.BindMode;
+import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
 
 public class WiremockTestResourceLifecycleManager implements QuarkusTestResourceLifecycleManager {
 
-    private WireMockServer wireMockServer;
+    private GenericContainer wiremock;
 
     @Override
     public Map<String, String> start() {
-        wireMockServer = new WireMockServer(WireMockConfiguration.options()
-            .usingFilesUnderClasspath("stubs") // Loading stubs from common-wiremock
-            .dynamicPort()
-        );
-        wireMockServer.start();
-        WireMock.configureFor(wireMockServer.port());
+        wiremock = new GenericContainer("wiremock/wiremock:2.35.0")
+            .withExposedPorts(8080)
+            .withClasspathResourceMapping("stubs", "/home/wiremock", BindMode.READ_ONLY)
+            .waitingFor(Wait
+                .forHttp("/__admin/mappings")
+                .withMethod("GET")
+                .forStatusCode(200));
+        wiremock.start();
+        WireMock.configureFor(wiremock.getMappedPort(8080));
 
         return Map.of(
-            "quarkus.rest-client.exchange-client.url", wireMockServer.baseUrl()
+            "quarkus.rest-client.exchange-client.url", String.format("http://%s:%d", wiremock.getHost(), wiremock.getMappedPort(8080))
         );
     }
 
     @Override
     public void stop() {
-        if (wireMockServer != null) {
-            wireMockServer.stop();
+        if (wiremock != null) {
+            wiremock.stop();
         }
     }
 }
