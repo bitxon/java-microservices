@@ -1,7 +1,7 @@
 plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
-    id("io.micronaut.application") version "3.7.0"
-    id("io.micronaut.test-resources") version "3.7.0"
+    id("io.micronaut.application") version "4.0.0-M2"
+    id("io.micronaut.test-resources") version "4.0.0-M2"
 }
 
 group = 'bitxon.micronaut'
@@ -21,12 +21,13 @@ dependencies {
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.micronaut:micronaut-jackson-databind")
     implementation("io.micronaut:micronaut-management")
+    implementation("io.micronaut.validation:micronaut-validation")
     implementation("io.micronaut.beanvalidation:micronaut-hibernate-validator")
     implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
     implementation("io.micronaut.sql:micronaut-jdbc-hikari")
-    implementation("jakarta.annotation:jakarta.annotation-api")
     implementation("org.mapstruct:mapstruct:1.5.3.Final")
     compileOnly("org.projectlombok:lombok")
+    runtimeOnly("org.yaml:snakeyaml")
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("io.micronaut.test:micronaut-test-rest-assured")
@@ -37,7 +38,6 @@ dependencies {
     testImplementation project(":common-wiremock")
     testImplementation("com.github.tomakehurst:wiremock-jre8:2.35.0")
     testImplementation("org.junit.jupiter:junit-jupiter-params")
-    implementation("io.micronaut:micronaut-validation")
 }
 
 application {
@@ -46,7 +46,7 @@ application {
 
 graalvmNative.toolchainDetection = false
 micronaut {
-    version("3.8.3")
+    version("4.0.0-M2")
     runtime("netty")
     testRuntime("junit5")
     processing {

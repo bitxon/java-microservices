@@ -1,6 +1,6 @@
 package bitxon.micronaut.mapper;
 
-import bitxon.common.api.model.Account;
+import bitxon.micronaut.api.model.Account;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
