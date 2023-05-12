@@ -7,34 +7,29 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.PositiveOrZero;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class Account {
-    Long id;
+public record Account(
+    Long id,
     @NotEmpty
     @Email
-    String email;
+    String email,
     @NotBlank
-    String firstName;
+    String firstName,
     @NotBlank
-    String lastName;
+    String lastName,
     @NotNull
     @Past
-    LocalDate dateOfBirth;
+    LocalDate dateOfBirth,
     @NotNull
     @Pattern(regexp = "USD|EUR|GBP")
-    String currency;
+    String currency,
     @NotNull
     @PositiveOrZero
-    Integer moneyAmount;
+    Integer moneyAmount
 
+) {
 }
