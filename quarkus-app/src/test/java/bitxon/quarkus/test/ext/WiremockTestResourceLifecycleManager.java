@@ -1,12 +1,12 @@
 package bitxon.quarkus.test.ext;
 
-import java.util.Map;
-
 import com.github.tomakehurst.wiremock.client.WireMock;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.testcontainers.containers.BindMode;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
+
+import java.util.Map;
 
 public class WiremockTestResourceLifecycleManager implements QuarkusTestResourceLifecycleManager {
 

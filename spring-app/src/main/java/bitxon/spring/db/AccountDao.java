@@ -1,10 +1,10 @@
 package bitxon.spring.db;
 
-import java.util.List;
-import java.util.Optional;
-
 import bitxon.spring.db.model.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+import java.util.Optional;
 
 
 public interface AccountDao extends JpaRepository<Account, Long> {

@@ -1,14 +1,14 @@
 package bitxon.dropwizard.errorhandler;
 
+import bitxon.common.api.model.error.ErrorResponse;
+import io.dropwizard.jersey.validation.JerseyViolationException;
 import jakarta.validation.Path;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
+
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
-import bitxon.common.api.model.error.ErrorResponse;
-import io.dropwizard.jersey.validation.JerseyViolationException;
 
 @Provider
 public class JerseyViolationExceptionHandler implements ExceptionMapper<JerseyViolationException> {

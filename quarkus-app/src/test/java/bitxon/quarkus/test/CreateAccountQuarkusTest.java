@@ -3,12 +3,12 @@ package bitxon.quarkus.test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.hasItem;
 
-import java.time.LocalDate;
-
 import bitxon.common.api.model.Account;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
 
 @QuarkusTest
 public class CreateAccountQuarkusTest extends AbstractQuarkusTest {

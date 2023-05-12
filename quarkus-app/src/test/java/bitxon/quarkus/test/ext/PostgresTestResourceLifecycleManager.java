@@ -1,10 +1,10 @@
 package bitxon.quarkus.test.ext;
 
-import java.util.Map;
-
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
+
+import java.util.Map;
 
 public class PostgresTestResourceLifecycleManager implements QuarkusTestResourceLifecycleManager {
 

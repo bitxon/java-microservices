@@ -1,6 +1,5 @@
 package bitxon.quarkus.test;
 
-import bitxon.quarkus.test.CreateAccountQuarkusTest;
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
 @QuarkusIntegrationTest

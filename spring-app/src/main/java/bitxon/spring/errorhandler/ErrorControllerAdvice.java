@@ -1,8 +1,5 @@
 package bitxon.spring.errorhandler;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import bitxon.common.api.model.error.ErrorResponse;
 import bitxon.common.exception.ResourceNotFoundException;
 import org.springframework.core.Ordered;
@@ -15,6 +12,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Order(Ordered.LOWEST_PRECEDENCE)
 @RestControllerAdvice

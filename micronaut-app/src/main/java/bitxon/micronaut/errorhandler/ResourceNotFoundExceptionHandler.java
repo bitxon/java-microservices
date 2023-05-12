@@ -1,7 +1,5 @@
 package bitxon.micronaut.errorhandler;
 
-import java.util.List;
-
 import bitxon.common.api.model.error.ErrorResponse;
 import bitxon.common.exception.ResourceNotFoundException;
 import io.micronaut.context.annotation.Requires;
@@ -11,6 +9,8 @@ import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.Produces;
 import io.micronaut.http.server.exceptions.ExceptionHandler;
 import jakarta.inject.Singleton;
+
+import java.util.List;
 
 @Produces
 @Singleton

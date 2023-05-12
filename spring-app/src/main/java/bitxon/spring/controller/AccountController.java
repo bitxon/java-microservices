@@ -3,17 +3,13 @@ package bitxon.spring.controller;
 import static bitxon.common.api.constant.Constants.DIRTY_TRICK_HEADER;
 import static bitxon.common.api.constant.Constants.DirtyTrick.FAIL_TRANSFER;
 
-import jakarta.validation.Valid;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
+import bitxon.common.api.model.Account;
+import bitxon.common.api.model.MoneyTransfer;
 import bitxon.common.exception.ResourceNotFoundException;
-import bitxon.spring.api.model.Account;
-import bitxon.spring.api.model.MoneyTransfer;
 import bitxon.spring.client.ExchangeClient;
 import bitxon.spring.db.AccountDao;
 import bitxon.spring.mapper.AccountMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +21,10 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/accounts")

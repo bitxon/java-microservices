@@ -4,11 +4,11 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.notNullValue;
 
-import java.time.LocalDate;
-
 import bitxon.common.api.model.Account;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
 
 
 class CreateAccountMicronautTest extends AbstractMicronautTest {

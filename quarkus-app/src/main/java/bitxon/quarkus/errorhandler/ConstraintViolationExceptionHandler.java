@@ -1,5 +1,6 @@
 package bitxon.quarkus.errorhandler;
 
+import bitxon.common.api.model.error.ErrorResponse;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Path;
 import jakarta.ws.rs.core.Response;
@@ -8,8 +9,6 @@ import jakarta.ws.rs.ext.Provider;
 
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
-import bitxon.common.api.model.error.ErrorResponse;
 
 @Provider
 public class ConstraintViolationExceptionHandler implements ExceptionMapper<ConstraintViolationException> {

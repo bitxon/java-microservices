@@ -1,9 +1,9 @@
 package bitxon.dropwizard.db;
 
+import bitxon.dropwizard.db.model.Account;
+
 import java.util.List;
 import java.util.Optional;
-
-import bitxon.dropwizard.db.model.Account;
 
 
 public interface AccountDao {
