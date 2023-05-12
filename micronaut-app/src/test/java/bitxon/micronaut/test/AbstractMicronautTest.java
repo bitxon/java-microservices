@@ -1,10 +1,6 @@
 package bitxon.micronaut.test;
 
-import java.util.Map;
-
-import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
-import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import io.micronaut.runtime.EmbeddedApplication;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import io.micronaut.test.support.TestPropertyProvider;
@@ -14,11 +10,11 @@ import org.testcontainers.containers.BindMode;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
-import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.lifecycle.Startables;
 import org.testcontainers.utility.DockerImageName;
 
-@Testcontainers
+import java.util.Map;
+
 @MicronautTest // default environments is 'test'
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class AbstractMicronautTest implements TestPropertyProvider {

@@ -15,7 +15,6 @@ import io.dropwizard.core.setup.Bootstrap;
 import io.dropwizard.core.setup.Environment;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
-
 import org.glassfish.jersey.internal.inject.AbstractBinder;
 import org.mapstruct.factory.Mappers;
 

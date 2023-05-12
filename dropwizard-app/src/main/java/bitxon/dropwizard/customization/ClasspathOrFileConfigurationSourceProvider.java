@@ -1,9 +1,9 @@
 package bitxon.dropwizard.customization;
 
+import io.dropwizard.configuration.FileConfigurationSourceProvider;
+
 import java.io.IOException;
 import java.io.InputStream;
-
-import io.dropwizard.configuration.FileConfigurationSourceProvider;
 
 public class ClasspathOrFileConfigurationSourceProvider extends FileConfigurationSourceProvider {
 

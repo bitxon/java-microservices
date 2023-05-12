@@ -1,11 +1,11 @@
 package bitxon.dropwizard.db;
 
-import java.util.List;
-import java.util.Optional;
-
 import bitxon.dropwizard.db.model.Account;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
+
+import java.util.List;
+import java.util.Optional;
 
 public class AccountDaoHibernateImpl extends AbstractDAO<Account> implements AccountDao {
 

@@ -3,13 +3,9 @@ package bitxon.micronaut.controller;
 import static bitxon.common.api.constant.Constants.DIRTY_TRICK_HEADER;
 import static bitxon.common.api.constant.Constants.DirtyTrick.FAIL_TRANSFER;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
+import bitxon.common.api.model.Account;
+import bitxon.common.api.model.MoneyTransfer;
 import bitxon.common.exception.ResourceNotFoundException;
-import bitxon.micronaut.api.model.Account;
-import bitxon.micronaut.api.model.MoneyTransfer;
 import bitxon.micronaut.client.exchange.ExchangeClient;
 import bitxon.micronaut.db.AccountDao;
 import bitxon.micronaut.mapper.AccountMapper;
@@ -28,6 +24,10 @@ import io.micronaut.transaction.annotation.ReadOnly;
 import io.micronaut.transaction.annotation.TransactionalAdvice;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @ExecuteOn(TaskExecutors.IO)
 @Controller("/accounts")

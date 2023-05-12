@@ -3,6 +3,13 @@ package bitxon.dropwizard.resource;
 import static bitxon.common.api.constant.Constants.DIRTY_TRICK_HEADER;
 import static bitxon.common.api.constant.Constants.DirtyTrick.FAIL_TRANSFER;
 
+import bitxon.common.api.model.Account;
+import bitxon.common.api.model.MoneyTransfer;
+import bitxon.common.exception.ResourceNotFoundException;
+import bitxon.dropwizard.client.exchange.ExchangeClient;
+import bitxon.dropwizard.db.AccountDao;
+import bitxon.dropwizard.mapper.AccountMapper;
+import io.dropwizard.hibernate.UnitOfWork;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -13,19 +20,11 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import bitxon.dropwizard.api.model.Account;
-import bitxon.dropwizard.api.model.MoneyTransfer;
-import bitxon.common.exception.ResourceNotFoundException;
-import bitxon.dropwizard.client.exchange.ExchangeClient;
-import bitxon.dropwizard.db.AccountDao;
-import bitxon.dropwizard.mapper.AccountMapper;
-import io.dropwizard.hibernate.UnitOfWork;
-import lombok.RequiredArgsConstructor;
 
 
 @Path("/accounts")

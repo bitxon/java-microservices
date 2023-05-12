@@ -1,9 +1,8 @@
 package bitxon.quarkus.db;
 
-import jakarta.enterprise.context.ApplicationScoped;
-
 import bitxon.quarkus.db.model.Account;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
+import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class AccountDao implements PanacheRepository<Account> {
