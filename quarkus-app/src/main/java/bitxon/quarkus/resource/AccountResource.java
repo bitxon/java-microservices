@@ -65,23 +65,23 @@ public class AccountResource {
     @Transactional
     public void transfer(@Valid MoneyTransfer transfer,
                          @HeaderParam(DIRTY_TRICK_HEADER) String dirtyTrick) {
-        var sender = dao.findByIdOptional(transfer.getSenderId())
+        var sender = dao.findByIdOptional(transfer.senderId())
             .orElseThrow(() -> new ResourceNotFoundException("Sender not found"));
 
-        var recipient = dao.findByIdOptional(transfer.getRecipientId())
+        var recipient = dao.findByIdOptional(transfer.recipientId())
             .orElseThrow(() -> new ResourceNotFoundException("Recipient not found"));
 
         var exchangeRateValue = exchangeClient.getExchangeRate(sender.getCurrency())
-            .getRates().getOrDefault(recipient.getCurrency(), 1.0);
+            .rates().getOrDefault(recipient.getCurrency(), 1.0);
 
-        sender.setMoneyAmount(sender.getMoneyAmount() - transfer.getMoneyAmount());
+        sender.setMoneyAmount(sender.getMoneyAmount() - transfer.moneyAmount());
         dao.save(sender);
 
         if (FAIL_TRANSFER.equals(dirtyTrick)) {
             throw new RuntimeException("Error during money transfer");
         }
 
-        recipient.setMoneyAmount(recipient.getMoneyAmount() + (int)(transfer.getMoneyAmount() * exchangeRateValue));
+        recipient.setMoneyAmount(recipient.getMoneyAmount() + (int)(transfer.moneyAmount() * exchangeRateValue));
         dao.save(recipient);
     }
 }
