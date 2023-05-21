@@ -12,12 +12,16 @@ public class PostgresTestResourceLifecycleManager implements QuarkusTestResource
 
 
     @Override
-    public Map<String, String> start() {
+    public void init(Map<String, String> initArgs) {
         postgreSQLContainer = (PostgreSQLContainer) new PostgreSQLContainer(DockerImageName.parse("postgres").withTag("14.4"))
             .withDatabaseName("testdb")
             .withUsername("postgres")
             .withPassword("postgres")
             .withInitScript("sql/db-test-data.sql");
+    }
+
+    @Override
+    public Map<String, String> start() {
         postgreSQLContainer.start();
 
         return Map.of(
