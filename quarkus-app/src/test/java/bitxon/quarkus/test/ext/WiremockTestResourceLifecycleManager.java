@@ -12,8 +12,9 @@ public class WiremockTestResourceLifecycleManager implements QuarkusTestResource
 
     private GenericContainer wiremock;
 
+
     @Override
-    public Map<String, String> start() {
+    public void init(Map<String, String> initArgs) {
         wiremock = new GenericContainer("wiremock/wiremock:2.35.0")
             .withExposedPorts(8080)
             .withCopyFileToContainer(MountableFile.forClasspathResource("stubs"), "/home/wiremock")
@@ -21,6 +22,10 @@ public class WiremockTestResourceLifecycleManager implements QuarkusTestResource
                 .forHttp("/__admin/mappings")
                 .withMethod("GET")
                 .forStatusCode(200));
+    }
+
+    @Override
+    public Map<String, String> start() {
         wiremock.start();
         WireMock.configureFor(wiremock.getMappedPort(8080));
 
