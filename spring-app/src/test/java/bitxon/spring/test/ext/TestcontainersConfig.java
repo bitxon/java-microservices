@@ -16,21 +16,21 @@ public class TestcontainersConfig {
     @ServiceConnection
     public PostgreSQLContainer postgreSQLContainer() {
         return (PostgreSQLContainer) new PostgreSQLContainer("postgres:14.4")
-                .withDatabaseName("testdb")
-                .withUsername("postgres")
-                .withPassword("postgres")
-                .withInitScript("sql/db-test-data.sql");
+            .withDatabaseName("testdb")
+            .withUsername("postgres")
+            .withPassword("postgres")
+            .withInitScript("sql/db-test-data.sql");
     }
 
     @Bean
     public GenericContainer wiremockContainer(DynamicPropertyRegistry registry) {
         var container = new GenericContainer("wiremock/wiremock:2.35.0")
-                .withExposedPorts(8080)
-                .withCopyFileToContainer(MountableFile.forClasspathResource("stubs"), "/home/wiremock")
-                .waitingFor(Wait
-                        .forHttp("/__admin/mappings")
-                        .withMethod("GET")
-                        .forStatusCode(200));
+            .withExposedPorts(8080)
+            .withCopyFileToContainer(MountableFile.forClasspathResource("stubs"), "/home/wiremock")
+            .waitingFor(Wait
+                .forHttp("/__admin/mappings")
+                .withMethod("GET")
+                .forStatusCode(200));
 
 
         registry.add("http.exchange-client.url", () -> httpUrl(container.getHost(), container.getMappedPort(8080)));
