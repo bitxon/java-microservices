@@ -4,10 +4,10 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.DynamicPropertyRegistry;
-import org.testcontainers.containers.BindMode;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.utility.MountableFile;
 
 @TestConfiguration(proxyBeanMethods = false)
 public class TestcontainersConfig {
@@ -26,7 +26,7 @@ public class TestcontainersConfig {
     public GenericContainer wiremockContainer(DynamicPropertyRegistry registry) {
         var container = new GenericContainer("wiremock/wiremock:2.35.0")
                 .withExposedPorts(8080)
-                .withClasspathResourceMapping("stubs", "/home/wiremock", BindMode.READ_ONLY)
+                .withCopyFileToContainer(MountableFile.forClasspathResource("stubs"), "/home/wiremock")
                 .waitingFor(Wait
                         .forHttp("/__admin/mappings")
                         .withMethod("GET")

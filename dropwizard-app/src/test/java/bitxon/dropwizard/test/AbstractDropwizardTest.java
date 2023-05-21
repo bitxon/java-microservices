@@ -9,12 +9,12 @@ import io.dropwizard.testing.ConfigOverrideRandomPorts;
 import io.dropwizard.testing.DropwizardTestSupport;
 import io.dropwizard.testing.ResourceHelpers;
 import io.restassured.RestAssured;
-import org.testcontainers.containers.BindMode;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.lifecycle.Startables;
 import org.testcontainers.utility.DockerImageName;
+import org.testcontainers.utility.MountableFile;
 
 
 abstract class AbstractDropwizardTest {
@@ -26,7 +26,7 @@ abstract class AbstractDropwizardTest {
         .withInitScript("sql/db-test-data.sql");
     static GenericContainer WIREMOCK = new GenericContainer("wiremock/wiremock:2.35.0")
         .withExposedPorts(8080)
-        .withClasspathResourceMapping("stubs", "/home/wiremock", BindMode.READ_ONLY)
+        .withCopyFileToContainer(MountableFile.forClasspathResource("stubs"), "/home/wiremock")
         .waitingFor(Wait
             .forHttp("/__admin/mappings")
             .withMethod("GET")
