@@ -2,9 +2,9 @@ package bitxon.quarkus.test.ext;
 
 import com.github.tomakehurst.wiremock.client.WireMock;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
-import org.testcontainers.containers.BindMode;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.utility.MountableFile;
 
 import java.util.Map;
 
@@ -16,7 +16,7 @@ public class WiremockTestResourceLifecycleManager implements QuarkusTestResource
     public Map<String, String> start() {
         wiremock = new GenericContainer("wiremock/wiremock:2.35.0")
             .withExposedPorts(8080)
-            .withClasspathResourceMapping("stubs", "/home/wiremock", BindMode.READ_ONLY)
+            .withCopyFileToContainer(MountableFile.forClasspathResource("stubs"), "/home/wiremock")
             .waitingFor(Wait
                 .forHttp("/__admin/mappings")
                 .withMethod("GET")
