@@ -43,6 +43,7 @@ abstract class AbstractMicronautTest implements TestPropertyProvider {
     @Override
     public Map<String, String> getProperties() {
         return Map.of(
+            "micronaut.server.port", "${random.port}",
             "datasources.default.url", DB.getJdbcUrl(),
             "datasources.default.username", DB.getUsername(),
             "datasources.default.password", DB.getPassword(),

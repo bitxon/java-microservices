@@ -1,0 +1,74 @@
+[
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/exchanges",
+      "queryStringParameters": {
+        "currency": "EUR"
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "body": {
+        "base": "EUR",
+        "rates": {
+          "USD": 1.0,
+          "EUR": 1.0,
+          "GBP": 0.5
+        }
+      },
+      "delay": {
+        "timeUnit": "MILLISECONDS",
+        "value": 200
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/exchanges",
+      "queryStringParameters": {
+        "currency": "GBP"
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "body": {
+        "base": "GBP",
+        "rates": {
+          "USD": 2.0,
+          "EUR": 2.0,
+          "GBP": 1.0
+        }
+      },
+      "delay": {
+        "timeUnit": "MILLISECONDS",
+        "value": 200
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/exchanges",
+      "queryStringParameters": {
+        "currency": "USD"
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "body": {
+        "base": "USD",
+        "rates": {
+          "USD": 1.0,
+          "EUR": 1.0,
+          "GBP": 0.5
+        }
+      },
+      "delay": {
+        "timeUnit": "MILLISECONDS",
+        "value": 200
+      }
+    }
+  }
+]

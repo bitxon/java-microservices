@@ -137,29 +137,37 @@ public class CommonSimulation extends Simulation {
 
     {
         setUp(
-            scenarioGetAll.injectOpen(
-                constantUsersPerSec(4).during(90)
-            ),
-            scenarioGetOne.injectOpen(
-                nothingFor(4), // Wait
-                atOnceUsers(10), // 10
-                rampUsers(10).during(5), // 10 -> 20
-                constantUsersPerSec(20).during(15), // 20
-                constantUsersPerSec(20).during(15).randomized(), // 20
-                rampUsersPerSec(10).to(20).during(10), // 10 -> 20
-                rampUsersPerSec(10).to(20).during(10).randomized(), // 10 -> 20
-                stressPeakUsers(400).during(20) // 8
-            ),
-            scenarioTransfer.injectOpen(
-                incrementUsersPerSec(3)
-                    .times(6)
-                    .eachLevelLasting(8)
-                    .separatedByRampsLasting(8)
-                    .startingFrom(8)
-            ),
-            scenarioValidation.injectOpen(
-                constantUsersPerSec(10).during(90)
+            scenarioTransfer.injectClosed(
+                constantConcurrentUsers(1000).during(10)
             )
         ).protocols(httpProtocol);
     }
+
+//    {
+//        setUp(
+//            scenarioGetAll.injectOpen(
+//                constantUsersPerSec(4).during(90)
+//            ),
+//            scenarioGetOne.injectOpen(
+//                nothingFor(4), // Wait
+//                atOnceUsers(10), // 10
+//                rampUsers(10).during(5), // 10 -> 20
+//                constantUsersPerSec(20).during(15), // 20
+//                constantUsersPerSec(20).during(15).randomized(), // 20
+//                rampUsersPerSec(10).to(20).during(10), // 10 -> 20
+//                rampUsersPerSec(10).to(20).during(10).randomized(), // 10 -> 20
+//                stressPeakUsers(400).during(20) // 8
+//            ),
+//            scenarioTransfer.injectOpen(
+//                incrementUsersPerSec(3)
+//                    .times(6)
+//                    .eachLevelLasting(8)
+//                    .separatedByRampsLasting(8)
+//                    .startingFrom(8)
+//            ),
+//            scenarioValidation.injectOpen(
+//                constantUsersPerSec(10).during(90)
+//            )
+//        ).protocols(httpProtocol);
+//    }
 }

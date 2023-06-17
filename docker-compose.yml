@@ -1,6 +1,7 @@
-version: '3.8'
+version: "3.8"
 services:
   db:
+    container_name: db
     image: postgres:14.4
     restart: always
     environment:
@@ -8,13 +9,25 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
-      - '5432:5432'
+      - "5432:5432"
 
   wiremock:
-    image: wiremock/wiremock:2.32.0
+    container_name: wiremock
+    image: wiremock/wiremock:2.35.0
     ports:
       - "8888:8080"
-    command:
-      - "--global-response-templating"
+    command: ["--async-response-enabled=true"]
     volumes:
       - ./common-wiremock/src/main/resources/stubs:/home/wiremock
+
+  mockserver:
+    container_name: mockserver
+    image: mockserver/mockserver:5.15.0
+    ports:
+      - "8888:1080"
+    environment:
+      MOCKSERVER_LOG_LEVEL: WARN
+      MOCKSERVER_INITIALIZATION_JSON_PATH: /config/expectationInitialiser.json
+      MOCKSERVER_NIO_EVENT_LOOP_THREAD_COUNT: 20
+    volumes:
+      - ./common-wiremock/src/main/resources/mockserver-config:/config

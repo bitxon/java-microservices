@@ -33,6 +33,7 @@ dependencies {
     compileOnly("org.projectlombok:lombok")
 
     runtimeOnly 'org.postgresql:postgresql'
+    //runtimeOnly 'io.netty:netty-resolver-dns-native-macos:4.1.92.Final:osx-aarch_64'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.boot:spring-boot-testcontainers'

@@ -23,7 +23,7 @@ abstract class AbstractDropwizardTest {
         .withDatabaseName("testdb")
         .withUsername("postgres")
         .withPassword("postgres")
-        .withInitScript("sql/db-test-data.sql");
+        .withCopyFileToContainer(MountableFile.forClasspathResource("sql/db-test-data.sql"), "/docker-entrypoint-initdb.d/");
     static GenericContainer WIREMOCK = new GenericContainer("wiremock/wiremock:2.35.0")
         .withExposedPorts(8080)
         .withCopyFileToContainer(MountableFile.forClasspathResource("stubs"), "/home/wiremock")
