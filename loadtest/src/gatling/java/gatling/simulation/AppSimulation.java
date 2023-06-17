@@ -11,12 +11,18 @@ import java.util.UUID;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import io.gatling.javaapi.core.*;
-import io.gatling.javaapi.http.*;
+import io.gatling.javaapi.core.ChainBuilder;
+import io.gatling.javaapi.core.FeederBuilder;
+import io.gatling.javaapi.core.ScenarioBuilder;
+import io.gatling.javaapi.core.Simulation;
+import io.gatling.javaapi.http.HttpProtocolBuilder;
 
-public class CommonSimulation extends Simulation {
+public class AppSimulation extends Simulation {
 
-    static final String BASE_URL = System.getProperty("base.url", "http://localhost:8080");
+    static final String BASE_URL = System.getProperty("baseUrl", "http://localhost:8080");
+    static final int USERS = Integer.getInteger("users", 500);
+    static final int REQUESTS_PER_USER = Integer.getInteger("requestsPerUser", 5); // TODO align with WiremockSimulation value
+    static final int DURATION = Integer.getInteger("duration", 20);
 
     //-----------------------------------------------------------------------------------------------------------------
 
@@ -110,10 +116,6 @@ public class CommonSimulation extends Simulation {
 
     //-----------------------------------------------------------------------------------------------------------------
 
-    HttpProtocolBuilder httpProtocol = http.baseUrl(BASE_URL)
-        .acceptHeader("application/json")
-        .acceptLanguageHeader("en-US,en;q=0.5");
-
     ScenarioBuilder scenarioGetAll = scenario("Get All - Scenario").exec(
         getAllAccounts()
     );
@@ -124,9 +126,11 @@ public class CommonSimulation extends Simulation {
     );
 
     ScenarioBuilder scenarioTransfer = scenario("Transfer - Scenario").exec(
-        postAccount("senderId").exitHereIfFailed(),
-        postAccount("recipientId").exitHereIfFailed(),
-        postTransfer()
+        repeat(REQUESTS_PER_USER).on(exec(
+            postAccount("senderId").exitHereIfFailed(),
+            postAccount("recipientId").exitHereIfFailed(),
+            postTransfer()
+        ))
     );
 
     ScenarioBuilder scenarioValidation = scenario("Validation 4xx - Scenario").exec(
@@ -135,30 +139,24 @@ public class CommonSimulation extends Simulation {
 
     //-----------------------------------------------------------------------------------------------------------------
 
+    HttpProtocolBuilder httpProtocol = http.baseUrl(BASE_URL)
+        .acceptHeader("application/json")
+        .acceptLanguageHeader("en-US,en;q=0.5");
+
     {
         setUp(
             scenarioGetAll.injectOpen(
-                constantUsersPerSec(4).during(90)
+                constantUsersPerSec(2).during(DURATION)
             ),
             scenarioGetOne.injectOpen(
-                nothingFor(4), // Wait
-                atOnceUsers(10), // 10
-                rampUsers(10).during(5), // 10 -> 20
-                constantUsersPerSec(20).during(15), // 20
-                constantUsersPerSec(20).during(15).randomized(), // 20
-                rampUsersPerSec(10).to(20).during(10), // 10 -> 20
-                rampUsersPerSec(10).to(20).during(10).randomized(), // 10 -> 20
-                stressPeakUsers(400).during(20) // 8
+                constantUsersPerSec(2).during(DURATION)
             ),
             scenarioTransfer.injectOpen(
-                incrementUsersPerSec(3)
-                    .times(6)
-                    .eachLevelLasting(8)
-                    .separatedByRampsLasting(8)
-                    .startingFrom(8)
+                // Transfer is the most I/O intensive operation in application
+                rampUsers(USERS).during(DURATION)
             ),
             scenarioValidation.injectOpen(
-                constantUsersPerSec(10).during(90)
+                constantUsersPerSec(2).during(DURATION)
             )
         ).protocols(httpProtocol);
     }

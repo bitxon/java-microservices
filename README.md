@@ -21,7 +21,20 @@ All applications implement the same functionality and expose the same REST api
     - `./run-micronaut.sh`
     - `./run-quarkus.sh`
 4. Run Gatling:
-    - `./gradlew :loadtest:gatlingRun`
+    - `./gradlew :loadtest:gatlingRun-gatling.simulation.AppSimulation`
+
+<details>
+ <summary>Check wiremock performance</summary>
+
+
+1. Spin Up Wiremock:
+   - `docker-compose up -d wiremock`
+4. Run Gatling:
+   - `./gradlew :loadtest:gatlingRun-gatling.simulation.WiremockSimulation`
+
+</details>
+
+
 
 # Rest API
 
