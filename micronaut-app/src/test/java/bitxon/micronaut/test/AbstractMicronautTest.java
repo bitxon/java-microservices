@@ -1,10 +1,13 @@
 package bitxon.micronaut.test;
 
 import com.github.tomakehurst.wiremock.client.WireMock;
+import io.micronaut.http.server.netty.NettyHttpServer;
 import io.micronaut.runtime.EmbeddedApplication;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import io.micronaut.test.support.TestPropertyProvider;
+import io.restassured.RestAssured;
 import jakarta.inject.Inject;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInstance;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -34,7 +37,6 @@ abstract class AbstractMicronautTest implements TestPropertyProvider {
 
     static {
         Startables.deepStart(DB, WIREMOCK).join();
-        WireMock.configureFor(WIREMOCK.getMappedPort(8080));
     }
 
     @Inject
@@ -43,10 +45,21 @@ abstract class AbstractMicronautTest implements TestPropertyProvider {
     @Override
     public Map<String, String> getProperties() {
         return Map.of(
+            "micronaut.server.port", "-1",
+            "endpoints.all.port", "-1",
             "datasources.default.url", DB.getJdbcUrl(),
             "datasources.default.username", DB.getUsername(),
             "datasources.default.password", DB.getPassword(),
             "micronaut.http.services.exchange-client.url", String.format("http://%s:%d", WIREMOCK.getHost(), WIREMOCK.getMappedPort(8080))
         );
+    }
+
+    @BeforeEach
+    public void setUp() {
+        RestAssured.port = ((NettyHttpServer) application).getPort();;
+        WireMock.configureFor(WIREMOCK.getHost(), WIREMOCK.getMappedPort(8080));
+        // Native micronaut way to do that is to inject `RequestSpecification spec` into test
+        // @Test
+        // void testMethod(RequestSpecification spec) {
     }
 }
