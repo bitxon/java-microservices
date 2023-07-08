@@ -3,6 +3,7 @@ package bitxon.quarkus.test.ext;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
+import org.testcontainers.utility.MountableFile;
 
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public class PostgresTestResourceLifecycleManager implements QuarkusTestResource
             .withDatabaseName("testdb")
             .withUsername("postgres")
             .withPassword("postgres")
-            .withInitScript("sql/db-test-data.sql");
+            .withCopyFileToContainer(MountableFile.forClasspathResource("sql/db-test-data.sql"), "/docker-entrypoint-initdb.d/");
     }
 
     @Override

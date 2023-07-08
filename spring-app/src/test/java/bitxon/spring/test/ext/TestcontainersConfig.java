@@ -19,7 +19,7 @@ public class TestcontainersConfig {
             .withDatabaseName("testdb")
             .withUsername("postgres")
             .withPassword("postgres")
-            .withInitScript("sql/db-test-data.sql");
+            .withCopyFileToContainer(MountableFile.forClasspathResource("sql/db-test-data.sql"), "/docker-entrypoint-initdb.d/");
     }
 
     @Bean
