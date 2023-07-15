@@ -21,7 +21,7 @@ import io.micronaut.http.annotation.Status;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.transaction.annotation.ReadOnly;
-import io.micronaut.transaction.annotation.TransactionalAdvice;
+import io.micronaut.transaction.annotation.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -55,7 +55,7 @@ public class AccountController {
     }
 
     @Post
-    @TransactionalAdvice
+    @Transactional
     public Account create(@Body @Valid Account account) {
         return Optional.of(account)
             .map(mapper::mapToDb)
@@ -66,7 +66,7 @@ public class AccountController {
 
     @Post("/transfers")
     @Status(HttpStatus.NO_CONTENT)
-    @TransactionalAdvice
+    @Transactional
     public void transfer(@Body @Valid MoneyTransfer transfer,
                          @Header(value = DIRTY_TRICK_HEADER) @Nullable String dirtyTrick) {
         var sender = dao.findById(transfer.senderId())
