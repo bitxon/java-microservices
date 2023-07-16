@@ -1,14 +1,3 @@
-micronaut:
-  http:
-    services:
-      exchange-client:
-        url: 'will-be-replaced-in-test'
-        read-timeout: 1m
-
-datasources:
-  default:
-    url: 'will-be-replaced-in-test'
-
 jpa:
   default:
     properties:
