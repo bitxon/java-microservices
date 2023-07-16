@@ -138,4 +138,38 @@ Response Body:
 N/A
 ```
 
+Diagram:
+
+```mermaid
+    sequenceDiagram
+        actor User as User
+        participant App as Application
+        participant DB as Database
+        participant Api as Bank Api
+
+        User ->> App: POST /transfer
+        activate App
+        App ->> DB: Find accounts
+        deactivate App
+        activate DB
+        DB -->> App: Accounts
+        deactivate DB
+        activate App
+        App ->> Api: GET /exchange
+        deactivate App
+        activate Api
+        Api -->> App: Exchange rate
+        deactivate Api
+        activate App
+        App ->> App: Update balance of accounts
+        App ->> DB: Save accounts
+        deactivate App
+        activate DB
+        DB -->> App: Done
+        deactivate DB
+        activate App
+        App -->> User: Done
+        deactivate App
+```
+
 </details>
