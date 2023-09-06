@@ -32,11 +32,12 @@ abstract class AbstractDropwizardTest {
             .withMethod("GET")
             .forStatusCode(200));
     static DropwizardTestSupport<DropwizardConfiguration> APP = new DropwizardTestSupport<>(DropwizardApplication.class,
-        ResourceHelpers.resourceFilePath("config-test.yml"),
+        ResourceHelpers.resourceFilePath("config.yml"),
         ConfigOverrideRandomPorts.randomPorts(),
         config("database.url", DB::getJdbcUrl),
         config("database.user", DB::getUsername),
         config("database.password", DB::getPassword),
+        config("database.properties.hibernate.hbm2ddl.auto", "none"),
         config("exchangeClientConfig.basePath", () -> String.format("http://%s:%s/exchanges?currency=", WIREMOCK.getHost(), WIREMOCK.getMappedPort(8080)))
     );
 
