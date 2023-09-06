@@ -25,6 +25,7 @@ spring:
 http:
   exchange-client:
     url: http://localhost:8888
+    block-timeout: 5s # default=5s
 
 logging:
   level:
