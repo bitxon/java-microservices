@@ -14,7 +14,7 @@ micronaut:
     services:
       exchange-client:
         url: "http://localhost:8888"
-        read-timeout: 1m
+        read-timeout: 5s # default=10s
 endpoints:
   all:
     port: 8081

@@ -25,6 +25,7 @@ database:
 
 exchangeClientConfig:
   basePath: 'http://localhost:8888/exchanges?currency='
+  timeout: 5s # default=0.5s
 
 logging:
   level: INFO
