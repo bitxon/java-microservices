@@ -1,3 +1,8 @@
 spring:
   jpa:
     hibernate.ddl-auto: none
+    show-sql: true
+    open-in-view: false
+
+decorator.datasource.flexy-pool.threshold.connection.acquire: -1
+decorator.datasource.flexy-pool.threshold.connection.lease: 0
