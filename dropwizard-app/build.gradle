@@ -30,8 +30,8 @@ dependencies {
 
     testImplementation 'io.dropwizard:dropwizard-testing'
     testImplementation project(":common-wiremock")
-    // TODO switch to wiremock 3 after https://github.com/wiremock/wiremock/issues/1967
-    testImplementation 'com.github.tomakehurst:wiremock-jre8-standalone:2.35.0'
+    testImplementation 'org.wiremock:wiremock:3.2.0'
+    testImplementation 'com.google.code.findbugs:jsr305:3.0.2' //TODO research - dep should be transitive from wiremock
     testImplementation 'org.testcontainers:testcontainers:1.17.6'
     testImplementation 'org.testcontainers:junit-jupiter:1.17.6'
     testImplementation 'org.testcontainers:postgresql:1.17.6'
