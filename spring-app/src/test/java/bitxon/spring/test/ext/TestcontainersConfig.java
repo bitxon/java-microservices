@@ -24,7 +24,7 @@ public class TestcontainersConfig {
 
     @Bean
     public GenericContainer wiremockContainer(DynamicPropertyRegistry registry) {
-        var container = new GenericContainer("wiremock/wiremock:2.35.0")
+        var container = new GenericContainer("wiremock/wiremock:3.0.0-1")
             .withExposedPorts(8080)
             .withCopyFileToContainer(MountableFile.forClasspathResource("stubs"), "/home/wiremock")
             .waitingFor(Wait

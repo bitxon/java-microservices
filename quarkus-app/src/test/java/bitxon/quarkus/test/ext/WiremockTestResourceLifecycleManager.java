@@ -18,7 +18,7 @@ public class WiremockTestResourceLifecycleManager implements QuarkusTestResource
 
     @Override
     public void init(Map<String, String> initArgs) {
-        wiremockContainer = new GenericContainer("wiremock/wiremock:2.35.0")
+        wiremockContainer = new GenericContainer("wiremock/wiremock:3.0.0-1")
             .withExposedPorts(8080)
             .withCopyFileToContainer(MountableFile.forClasspathResource("stubs"), "/home/wiremock")
             .waitingFor(Wait

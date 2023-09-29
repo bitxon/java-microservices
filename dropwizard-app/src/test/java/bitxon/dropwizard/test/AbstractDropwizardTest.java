@@ -24,7 +24,7 @@ abstract class AbstractDropwizardTest {
         .withUsername("postgres")
         .withPassword("postgres")
         .withInitScript("sql/db-test-data.sql");
-    static GenericContainer WIREMOCK = new GenericContainer("wiremock/wiremock:2.35.0")
+    static GenericContainer WIREMOCK = new GenericContainer("wiremock/wiremock:3.0.0-1")
         .withExposedPorts(8080)
         .withCopyFileToContainer(MountableFile.forClasspathResource("stubs"), "/home/wiremock")
         .waitingFor(Wait
