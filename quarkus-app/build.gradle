@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'io.quarkus' version '3.0.1.Final'
+    id 'io.quarkus' version '3.6.0'
 }
 
 // Values: ['jar', 'uber-jar', 'native', 'native-sources']
@@ -19,7 +19,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
     implementation project(":common-api")
-    implementation enforcedPlatform("io.quarkus.platform:quarkus-bom:3.0.1.Final")
+    implementation enforcedPlatform("io.quarkus.platform:quarkus-bom:3.6.0")
     implementation 'io.quarkus:quarkus-arc'
     implementation 'io.quarkus:quarkus-resteasy-jackson'
     implementation 'io.quarkus:quarkus-rest-client-jackson'
