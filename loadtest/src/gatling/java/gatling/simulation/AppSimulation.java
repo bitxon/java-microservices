@@ -49,7 +49,7 @@ public class AppSimulation extends Simulation {
     //-----------------------------------------------------------------------------------------------------------------
 
     private static ChainBuilder postAccount(String sessionFieldNameForId) {
-        return exec().feed(feederPost).exec(http("Create")
+        return feed(feederPost).exec(http("Create")
             .post("/accounts")
             .header("Content-Type", "application/json")
             .body(StringBody("""
@@ -68,7 +68,7 @@ public class AppSimulation extends Simulation {
     }
 
     private static ChainBuilder postInvalidAccount() {
-        return exec().feed(feederInvalidPost).exec(http("Create (400,422)")
+        return feed(feederInvalidPost).exec(http("Create (400,422)")
             .post("/accounts")
             .header("Content-Type", "application/json")
             .body(StringBody("""
@@ -100,7 +100,7 @@ public class AppSimulation extends Simulation {
     }
 
     private static ChainBuilder postTransfer() {
-        return exec().feed(feederTransfer).exec(http("Transfer")
+        return feed(feederTransfer).exec(http("Transfer")
             .post("/accounts/transfers")
             .header("Content-Type", "application/json")
             .body(StringBody("""
