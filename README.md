@@ -21,7 +21,7 @@ All applications implement the same functionality and expose the same REST api
     - `./run-micronaut.sh`
     - `./run-quarkus.sh`
 4. Run Gatling:
-    - `./gradlew :loadtest:gatlingRun-gatling.simulation.AppSimulation`
+    - `./gradlew :loadtest:gatlingRun --simulation gatling.simulation.AppSimulation`
 
 <details>
  <summary>Check wiremock performance</summary>
@@ -30,7 +30,7 @@ All applications implement the same functionality and expose the same REST api
 1. Spin Up Wiremock:
    - `docker-compose up -d wiremock`
 4. Run Gatling:
-   - `./gradlew :loadtest:gatlingRun-gatling.simulation.WiremockSimulation`
+   - `./gradlew :loadtest:gatlingRun --simulation gatling.simulation.WiremockSimulation`
 
 </details>
 

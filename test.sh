@@ -15,4 +15,4 @@ for run in {1..3}; do
 done
 
 # Performance Test
-./gradlew :loadtest:gatlingRun-gatling.simulation.AppSimulation
+./gradlew :loadtest:gatlingRun --simulation gatling.simulation.AppSimulation
