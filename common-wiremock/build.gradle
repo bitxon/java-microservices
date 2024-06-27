@@ -1,7 +1,11 @@
 plugins {
-    id 'java'
+    id 'java-library'
 }
 
 group = 'bitxon.common'
 version = '1.0-SNAPSHOT'
-sourceCompatibility = '17'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
