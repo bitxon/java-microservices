@@ -1,6 +1,7 @@
 package bitxon.spring.errorhandler;
 
 import bitxon.common.api.model.error.ErrorResponse;
+import bitxon.common.exception.DirtyTrickException;
 import bitxon.common.exception.ResourceNotFoundException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -23,6 +24,11 @@ public class ErrorControllerAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handle(Exception ex) {
         return create(500, "Unknown error, see logs.");
+    }
+
+    @ExceptionHandler(DirtyTrickException.class)
+    public ResponseEntity<Object> handle(DirtyTrickException ex) {
+        return create(500, ex.getMessage());
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)

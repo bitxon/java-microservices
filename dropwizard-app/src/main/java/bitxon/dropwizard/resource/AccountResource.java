@@ -5,6 +5,7 @@ import static bitxon.common.api.constant.Constants.DirtyTrick.FAIL_TRANSFER;
 
 import bitxon.common.api.model.Account;
 import bitxon.common.api.model.MoneyTransfer;
+import bitxon.common.exception.DirtyTrickException;
 import bitxon.common.exception.ResourceNotFoundException;
 import bitxon.dropwizard.client.exchange.ExchangeClient;
 import bitxon.dropwizard.db.AccountDao;
@@ -82,7 +83,7 @@ public class AccountResource {
         dao.save(sender);
 
         if (FAIL_TRANSFER.equals(dirtyTrick)) {
-            throw new RuntimeException("Error during money transfer");
+            throw new DirtyTrickException("Error during money transfer");
         }
 
         recipient.setMoneyAmount(recipient.getMoneyAmount() + (int)(transfer.moneyAmount() * exchangeRateValue));
