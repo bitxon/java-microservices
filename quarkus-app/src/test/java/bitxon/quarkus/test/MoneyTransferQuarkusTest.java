@@ -74,7 +74,8 @@ public class MoneyTransferQuarkusTest extends AbstractQuarkusTest {
         .when()
             .post("/accounts/transfers")
         .then()
-            .statusCode(500);
+            .statusCode(500)
+            .body("errors", hasItem("Dirty Trick: Error during money transfer"));
         //@formatter:on
 
         get("/accounts/" + senderId).then()

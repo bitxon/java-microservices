@@ -72,7 +72,8 @@ class MoneyTransferMicronautTest extends AbstractMicronautTest {
         .when()
             .post("/accounts/transfers")
         .then()
-            .statusCode(500);
+            .statusCode(500)
+            .body("errors", hasItem("Dirty Trick: Error during money transfer"));
         //@formatter:on
 
         RestAssured.get("/accounts/" + senderId).then()
