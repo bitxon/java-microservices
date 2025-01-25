@@ -1,17 +1,17 @@
 plugins {
     id 'java'
-    id 'io.quarkus' version '3.6.0'
+    id 'io.quarkus' version '3.17.8'
 }
 
-// Values: ['jar', 'uber-jar', 'native', 'native-sources']
-ext.set("quarkus.package.type", "uber-jar")
+ext.set("quarkus.package.jar.type", "uber-jar") // ['fast-jar', 'uber-jar', 'mutable-jar']
 
 group = 'bitxon.quarkus'
 version =  '1.0-SNAPSHOT'
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 repositories {
@@ -23,9 +23,9 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
     implementation project(":common-api")
-    implementation enforcedPlatform("io.quarkus.platform:quarkus-bom:3.6.0")
+    implementation enforcedPlatform("io.quarkus.platform:quarkus-bom:3.17.8")
     implementation 'io.quarkus:quarkus-arc'
-    implementation 'io.quarkus:quarkus-resteasy-jackson'
+    implementation 'io.quarkus:quarkus-rest-jackson'
     implementation 'io.quarkus:quarkus-rest-client-jackson'
     implementation 'io.quarkus:quarkus-smallrye-health'
     implementation 'io.quarkus:quarkus-hibernate-validator'
