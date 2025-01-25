@@ -8,8 +8,9 @@ group = 'bitxon.dropwizard'
 version = '1.0-SNAPSHOT'
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 repositories {
@@ -18,7 +19,7 @@ repositories {
 
 dependencies {
     implementation project(":common-api")
-    implementation enforcedPlatform("io.dropwizard:dropwizard-bom:4.0.0")
+    implementation enforcedPlatform("io.dropwizard:dropwizard-bom:4.0.12")
     implementation 'io.dropwizard:dropwizard-core'
     implementation 'io.dropwizard:dropwizard-client'
     implementation 'io.dropwizard:dropwizard-validation'
@@ -30,17 +31,17 @@ dependencies {
 
     compileOnly 'org.projectlombok:lombok:1.18.24'
 
-    runtimeOnly 'org.postgresql:postgresql:42.4.0'
+    runtimeOnly 'org.postgresql:postgresql:42.7.5'
 
     testImplementation 'io.dropwizard:dropwizard-testing'
     testImplementation project(":common-wiremock")
     testImplementation 'org.wiremock:wiremock:3.2.0'
     testImplementation 'com.google.code.findbugs:jsr305:3.0.2' //TODO research - dep should be transitive from wiremock
-    testImplementation 'org.testcontainers:testcontainers:1.17.6'
-    testImplementation 'org.testcontainers:junit-jupiter:1.17.6'
-    testImplementation 'org.testcontainers:postgresql:1.17.6'
-    testImplementation 'org.assertj:assertj-core:3.24.2'
-    testImplementation 'io.rest-assured:rest-assured:5.3.0'
+    testImplementation 'org.testcontainers:testcontainers:1.20.4'
+    testImplementation 'org.testcontainers:junit-jupiter:1.20.4'
+    testImplementation 'org.testcontainers:postgresql:1.20.4'
+    testImplementation 'org.assertj:assertj-core:3.27.3'
+    testImplementation 'io.rest-assured:rest-assured:5.5.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api'
     testImplementation 'org.junit.jupiter:junit-jupiter-params'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
