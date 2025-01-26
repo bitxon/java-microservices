@@ -9,7 +9,7 @@ version = '1.0-SNAPSHOT'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -26,10 +26,10 @@ dependencies {
     implementation 'io.dropwizard:dropwizard-hibernate'
     implementation 'org.mapstruct:mapstruct:1.5.3.Final'
 
-    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.36'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
 
-    compileOnly 'org.projectlombok:lombok:1.18.24'
+    compileOnly 'org.projectlombok:lombok:1.18.36'
 
     runtimeOnly 'org.postgresql:postgresql:42.7.5'
 
