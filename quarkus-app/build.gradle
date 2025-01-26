@@ -10,7 +10,7 @@ version =  '1.0-SNAPSHOT'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -20,7 +20,7 @@ repositories {
 }
 
 dependencies {
-    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.36'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
     implementation project(":common-api")
     implementation enforcedPlatform("io.quarkus.platform:quarkus-bom:3.17.8")
@@ -32,7 +32,7 @@ dependencies {
     implementation 'io.quarkus:quarkus-hibernate-orm-panache'
     implementation 'io.quarkus:quarkus-jdbc-postgresql'
     implementation 'org.mapstruct:mapstruct:1.5.3.Final'
-    compileOnly 'org.projectlombok:lombok:1.18.24'
+    compileOnly 'org.projectlombok:lombok:1.18.36'
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.rest-assured:rest-assured'
     testImplementation 'org.testcontainers:junit-jupiter'

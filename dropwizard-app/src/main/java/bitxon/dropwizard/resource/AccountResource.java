@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 
 @Path("/accounts")
 @Produces(MediaType.APPLICATION_JSON)
-@RequiredArgsConstructor(onConstructor = @__(@Inject))
+@RequiredArgsConstructor(onConstructor_ = @Inject)
 public class AccountResource {
 
     private final AccountDao dao;
