@@ -36,6 +36,12 @@ public class DropwizardApplication extends Application<DropwizardConfiguration> 
         bootstrap.setConfigurationSourceProvider(new ClasspathOrFileConfigurationSourceProvider());
 
         bootstrap.addBundle(hibernate);
+
+        // TODO remove when Dropwizard 5 will release a fix with proper registration of Jackson's polymorphic subtypes
+        bootstrap.getObjectMapper().registerSubtypes(
+            io.dropwizard.jetty.HttpConnectorFactory.class,
+            io.dropwizard.jetty.HttpsConnectorFactory.class
+        );
     }
 
     @Override

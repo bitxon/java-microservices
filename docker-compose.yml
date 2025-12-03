@@ -1,8 +1,7 @@
-version: "3.8"
 services:
   db:
     container_name: db
-    image: postgres:14.4
+    image: postgres:18.1
     restart: always
     environment:
       - POSTGRES_DB=postgres
@@ -13,7 +12,7 @@ services:
 
   wiremock:
     container_name: wiremock
-    image: wiremock/wiremock:3.0.0-1
+    image: wiremock/wiremock:3.13.2
     ports:
       - "8888:8080"
     command: [ "--async-response-enabled=true", "--no-request-journal" ]

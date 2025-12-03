@@ -13,7 +13,7 @@ public class PostgresTestResourceLifecycleManager implements QuarkusTestResource
 
     @Override
     public void init(Map<String, String> initArgs) {
-        postgreSQLContainer = (PostgreSQLContainer) new PostgreSQLContainer(DockerImageName.parse("postgres").withTag("14.4"))
+        postgreSQLContainer = (PostgreSQLContainer) new PostgreSQLContainer("postgres:18.1")
             .withDatabaseName("testdb")
             .withUsername("postgres")
             .withPassword("postgres")
@@ -26,9 +26,9 @@ public class PostgresTestResourceLifecycleManager implements QuarkusTestResource
 
         return Map.of(
             "quarkus.datasource.jdbc.url", postgreSQLContainer.getJdbcUrl(),
-            "quarkus.datasource.username ", postgreSQLContainer.getUsername(),
+            "quarkus.datasource.username", postgreSQLContainer.getUsername(),
             "quarkus.datasource.password", postgreSQLContainer.getPassword(),
-            "quarkus.hibernate-orm.database.generation", "none"
+            "quarkus.hibernate-orm.schema-management.strategy", "none"
         );
     }
 

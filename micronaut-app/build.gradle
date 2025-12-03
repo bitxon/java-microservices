@@ -1,8 +1,8 @@
 plugins {
-    id("com.github.johnrengelman.shadow") version "8.1.1"
-    id("io.micronaut.application") version "4.4.4"
-    id("io.micronaut.test-resources") version "4.4.4"
-    id("io.micronaut.aot") version "4.4.4"
+    id("com.gradleup.shadow") version "9.2.1"
+    id("io.micronaut.application") version "4.6.1"
+    id("io.micronaut.test-resources") version "4.6.1"
+    id("io.micronaut.aot") version "4.6.1"
 }
 
 group = 'bitxon.micronaut'
@@ -24,6 +24,7 @@ dependencies {
     annotationProcessor("org.mapstruct:mapstruct-processor:1.5.3.Final")
     annotationProcessor("io.micronaut.data:micronaut-data-processor")
     annotationProcessor("io.micronaut:micronaut-http-validation")
+    annotationProcessor("io.micronaut.validation:micronaut-validation-processor")
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.micronaut:micronaut-jackson-databind")
     implementation("io.micronaut:micronaut-management")
@@ -44,7 +45,12 @@ dependencies {
     testImplementation("org.testcontainers:postgresql")
     testImplementation("org.testcontainers:testcontainers")
     testImplementation project(":common-wiremock")
-    testImplementation("org.wiremock:wiremock:3.2.0")
+    testImplementation("org.wiremock:wiremock:3.13.2")
+    testImplementation 'org.eclipse.jetty:jetty-servlet:11.0.26'        // wiremock dependency conflict workaround
+    testImplementation 'org.eclipse.jetty:jetty-servlets:11.0.26'       // wiremock dependency conflict workaround
+    testImplementation 'org.eclipse.jetty:jetty-webapp:11.0.26'         // wiremock dependency conflict workaround
+    testImplementation 'org.eclipse.jetty.http2:http2-server:11.0.26'   // wiremock dependency conflict workaround
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 application {
@@ -53,7 +59,7 @@ application {
 
 graalvmNative.toolchainDetection = false
 micronaut {
-    version("4.7.4")
+    version("4.10.3")
     runtime("netty")
     testRuntime("junit5")
     processing {
@@ -72,5 +78,9 @@ micronaut {
         optimizeNetty = true
         replaceLogbackXml = true
     }
+}
+
+tasks.named("dockerfileNative") {
+    jdkVersion = "21"
 }
 
