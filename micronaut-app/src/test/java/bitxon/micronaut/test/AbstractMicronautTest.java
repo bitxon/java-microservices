@@ -22,12 +22,12 @@ import java.util.Map;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class AbstractMicronautTest implements TestPropertyProvider {
 
-    static PostgreSQLContainer DB = (PostgreSQLContainer) new PostgreSQLContainer(DockerImageName.parse("postgres").withTag("14.4"))
+    static PostgreSQLContainer DB = (PostgreSQLContainer) new PostgreSQLContainer("postgres:18.1")
         .withDatabaseName("testdb")
         .withUsername("postgres")
         .withPassword("postgres")
         .withInitScript("sql/db-test-data.sql");
-    static GenericContainer WIREMOCK = new GenericContainer("wiremock/wiremock:3.0.0-1")
+    static GenericContainer WIREMOCK = new GenericContainer("wiremock/wiremock:3.13.2")
         .withExposedPorts(8080)
         .withCopyFileToContainer(MountableFile.forClasspathResource("stubs"), "/home/wiremock")
         .waitingFor(Wait

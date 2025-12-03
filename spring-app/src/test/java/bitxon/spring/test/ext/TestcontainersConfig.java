@@ -23,7 +23,7 @@ public class TestcontainersConfig {
     @Bean
     @ServiceConnection
     public PostgreSQLContainer postgreSQLContainer() {
-        return (PostgreSQLContainer) new PostgreSQLContainer("postgres:14.4")
+        return (PostgreSQLContainer) new PostgreSQLContainer("postgres:18.1")
             .withDatabaseName("testdb")
             .withUsername("postgres")
             .withPassword("postgres")
@@ -32,7 +32,7 @@ public class TestcontainersConfig {
 
     @Bean
     public GenericContainer wiremockContainer() {
-        return new GenericContainer("wiremock/wiremock:3.0.0-1")
+        return new GenericContainer("wiremock/wiremock:3.13.2")
             .withExposedPorts(8080)
             .withCopyFileToContainer(MountableFile.forClasspathResource("stubs"), "/home/wiremock")
             .waitingFor(Wait

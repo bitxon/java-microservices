@@ -4,7 +4,7 @@
 
 1. Build
     - `gradle clean build` (Slim jar)
-    - `gradle clean build -Dquarkus.package.type=uber-jar` (Fat Jar)
+    - `gradle clean build -Dquarkus.package.jar.type=uber-jar` (Fat Jar)
 2. Start application
     - `java -jar quarkus-app/build/quarkus-app/quarkus-run.jar` (Slim jar)
     - `java -jar quarkus-app/build/quarkus-app-1.0-SNAPSHOT-runner.jar` (Fat Jar)
@@ -25,12 +25,12 @@
 
 You can create a native executable using: 
 ```shell script
-./gradlew build -Dquarkus.package.type=native
+gradle build -Dquarkus.native.enabled=true -Dquarkus.package.jar.enabled=false
 ```
 
 Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
 ```shell script
-./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true
+gradle build -Dquarkus.native.enabled=true -Dquarkus.native.container-build=true -Dquarkus.package.jar.enabled=false
 ```
 
 You can then execute your native executable with: `./build/quarkus-app-1.0-SNAPSHOT-runner`
