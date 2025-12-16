@@ -10,6 +10,9 @@ management:
     port: 8081
 
 spring:
+  jackson:
+    deserialization:
+      ACCEPT_SINGLE_VALUE_AS_ARRAY: true # not really necessary, but shows how to customize Jackson
   datasource:
     hikari:
       maximum-pool-size: 40 # default=10

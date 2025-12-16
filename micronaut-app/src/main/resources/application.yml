@@ -24,6 +24,12 @@ netty:
     allocator:
       max-order: 3
 
+jackson:
+  serialization:
+    WRITE_DATES_AS_TIMESTAMPS: false
+  deserialization:
+    ACCEPT_SINGLE_VALUE_AS_ARRAY: true # not really necessary, but shows how to customize Jackson
+
 datasources:
   default:
     maximum-pool-size: 40 # default=10
