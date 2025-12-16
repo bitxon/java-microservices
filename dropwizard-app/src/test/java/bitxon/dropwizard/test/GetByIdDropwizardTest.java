@@ -19,7 +19,8 @@ class GetByIdDropwizardTest extends AbstractDropwizardTest {
             .get("/accounts/{id}")
         .then()
             .statusCode(200)
-            .body("id", is(expectedId));
+            .body("id", is(expectedId))
+            .body("dateOfBirth", is("1991-01-21"));
         //@formatter:on
     }
 

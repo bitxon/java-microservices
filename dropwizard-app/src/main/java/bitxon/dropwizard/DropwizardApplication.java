@@ -10,6 +10,8 @@ import bitxon.dropwizard.errorhandler.JerseyViolationExceptionHandler;
 import bitxon.dropwizard.errorhandler.ResourceNotFoundExceptionHandler;
 import bitxon.dropwizard.mapper.AccountMapper;
 import bitxon.dropwizard.resource.AccountResource;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.core.Application;
 import io.dropwizard.core.setup.Bootstrap;
@@ -66,6 +68,10 @@ public class DropwizardApplication extends Application<DropwizardConfiguration> 
             .build("exchangeClient");
         var exchangeClient = new ExchangeClient(client, configuration.getExchangeClientConfig());
         environment.jersey().register(exchangeClient);
+
+        var objectMapper = environment.getObjectMapper();
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY); // not really necessary, but shows how to customize Jackson
 
 
         environment.jersey().register(AccountResource.class);
