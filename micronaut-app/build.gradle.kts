@@ -5,12 +5,12 @@ plugins {
     id("io.micronaut.aot") version "4.6.1"
 }
 
-group = 'bitxon.micronaut'
-version = '1.0-SNAPSHOT'
+group = "bitxon.micronaut"
+version = "1.0-SNAPSHOT"
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
 
@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    implementation project(":common-api")
+    implementation(project(":common-api"))
     annotationProcessor("org.projectlombok:lombok")
     annotationProcessor("org.mapstruct:mapstruct-processor:1.5.3.Final")
     annotationProcessor("io.micronaut.data:micronaut-data-processor")
@@ -44,12 +44,12 @@ dependencies {
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")
     testImplementation("org.testcontainers:testcontainers")
-    testImplementation project(":common-wiremock")
+    testImplementation(project(":common-wiremock"))
     testImplementation("org.wiremock:wiremock:3.13.2")
-    testImplementation 'org.eclipse.jetty:jetty-servlet:11.0.26'        // wiremock dependency conflict workaround
-    testImplementation 'org.eclipse.jetty:jetty-servlets:11.0.26'       // wiremock dependency conflict workaround
-    testImplementation 'org.eclipse.jetty:jetty-webapp:11.0.26'         // wiremock dependency conflict workaround
-    testImplementation 'org.eclipse.jetty.http2:http2-server:11.0.26'   // wiremock dependency conflict workaround
+    testImplementation("org.eclipse.jetty:jetty-servlet:11.0.26")        // wiremock dependency conflict workaround
+    testImplementation("org.eclipse.jetty:jetty-servlets:11.0.26")       // wiremock dependency conflict workaround
+    testImplementation("org.eclipse.jetty:jetty-webapp:11.0.26")         // wiremock dependency conflict workaround
+    testImplementation("org.eclipse.jetty.http2:http2-server:11.0.26")   // wiremock dependency conflict workaround
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
@@ -57,7 +57,8 @@ application {
     mainClass.set("bitxon.micronaut.MicronautApplication")
 }
 
-graalvmNative.toolchainDetection = false
+graalvmNative.toolchainDetection.set(false)
+
 micronaut {
     version("4.10.3")
     runtime("netty")
@@ -69,18 +70,17 @@ micronaut {
     aot {
         // Please review carefully the optimizations enabled below
         // Check https://micronaut-projects.github.io/micronaut-aot/latest/guide/ for more details
-        optimizeServiceLoading = false
-        convertYamlToJava = false
-        precomputeOperations = true
-        cacheEnvironment = true
-        optimizeClassLoading = true
-        deduceEnvironment = true
-        optimizeNetty = true
-        replaceLogbackXml = true
+        optimizeServiceLoading.set(false)
+        convertYamlToJava.set(false)
+        precomputeOperations.set(true)
+        cacheEnvironment.set(true)
+        optimizeClassLoading.set(true)
+        deduceEnvironment.set(true)
+        optimizeNetty.set(true)
+        replaceLogbackXml.set(true)
     }
 }
 
-tasks.named("dockerfileNative") {
+tasks.named<io.micronaut.gradle.docker.NativeImageDockerfile>("dockerfileNative") {
     jdkVersion = "21"
 }
-

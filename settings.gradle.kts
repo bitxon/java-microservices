@@ -1,0 +1,9 @@
+rootProject.name = "java-microservices"
+
+include("common-api")
+include("common-wiremock")
+include("spring-app")
+include("dropwizard-app")
+include("micronaut-app")
+include("quarkus-app")
+include("loadtest")
